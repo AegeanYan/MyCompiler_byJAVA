@@ -1,0 +1,16 @@
+package AST;
+
+import java.util.ArrayList;
+import Util.position;
+public class ClassTypeNode extends BuiltinTypeNode{
+    String name;
+    public ClassTypeNode(String name , position pos){
+        super(pos);
+        this.name = name;
+        this.id = name;
+    }
+    @Override
+    public void accept(ASTVisitor visitor){
+        visitor.visit(this);
+    }
+}
