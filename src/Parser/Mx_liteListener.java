@@ -90,6 +90,26 @@ public interface Mx_liteListener extends ParseTreeListener {
 	 */
 	void exitStatement(Mx_liteParser.StatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link Mx_liteParser#suiteStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterSuiteStmt(Mx_liteParser.SuiteStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Mx_liteParser#suiteStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitSuiteStmt(Mx_liteParser.SuiteStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link Mx_liteParser#expressionStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionStmt(Mx_liteParser.ExpressionStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link Mx_liteParser#expressionStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionStmt(Mx_liteParser.ExpressionStmtContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code IfStmt}
 	 * labeled alternative in {@link Mx_liteParser#controlStmt}.
 	 * @param ctx the parse tree
@@ -162,25 +182,15 @@ public interface Mx_liteListener extends ParseTreeListener {
 	 */
 	void exitBreakStmt(Mx_liteParser.BreakStmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link Mx_liteParser#forinit}.
+	 * Enter a parse tree produced by {@link Mx_liteParser#primeStmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterForinit(Mx_liteParser.ForinitContext ctx);
+	void enterPrimeStmt(Mx_liteParser.PrimeStmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link Mx_liteParser#forinit}.
+	 * Exit a parse tree produced by {@link Mx_liteParser#primeStmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitForinit(Mx_liteParser.ForinitContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link Mx_liteParser#forstop}.
-	 * @param ctx the parse tree
-	 */
-	void enterForstop(Mx_liteParser.ForstopContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link Mx_liteParser#forstop}.
-	 * @param ctx the parse tree
-	 */
-	void exitForstop(Mx_liteParser.ForstopContext ctx);
+	void exitPrimeStmt(Mx_liteParser.PrimeStmtContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link Mx_liteParser#declarationStmt}.
 	 * @param ctx the parse tree
@@ -260,6 +270,54 @@ public interface Mx_liteListener extends ParseTreeListener {
 	 */
 	void exitBinaryExpr(Mx_liteParser.BinaryExprContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code UnaryExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterUnaryExpr(Mx_liteParser.UnaryExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code UnaryExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitUnaryExpr(Mx_liteParser.UnaryExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code IndexExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterIndexExpr(Mx_liteParser.IndexExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code IndexExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitIndexExpr(Mx_liteParser.IndexExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PrefixExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrefixExpr(Mx_liteParser.PrefixExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PrefixExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrefixExpr(Mx_liteParser.PrefixExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code SuffixExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSuffixExpr(Mx_liteParser.SuffixExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SuffixExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSuffixExpr(Mx_liteParser.SuffixExprContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code NewExpr}
 	 * labeled alternative in {@link Mx_liteParser#expression}.
 	 * @param ctx the parse tree
@@ -284,18 +342,6 @@ public interface Mx_liteListener extends ParseTreeListener {
 	 */
 	void exitMemberAccessExpr(Mx_liteParser.MemberAccessExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code UnaryExpr}
-	 * labeled alternative in {@link Mx_liteParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterUnaryExpr(Mx_liteParser.UnaryExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code UnaryExpr}
-	 * labeled alternative in {@link Mx_liteParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitUnaryExpr(Mx_liteParser.UnaryExprContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code ThisExpr}
 	 * labeled alternative in {@link Mx_liteParser#expression}.
 	 * @param ctx the parse tree
@@ -307,18 +353,6 @@ public interface Mx_liteListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitThisExpr(Mx_liteParser.ThisExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code IndexExpr}
-	 * labeled alternative in {@link Mx_liteParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void enterIndexExpr(Mx_liteParser.IndexExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code IndexExpr}
-	 * labeled alternative in {@link Mx_liteParser#expression}.
-	 * @param ctx the parse tree
-	 */
-	void exitIndexExpr(Mx_liteParser.IndexExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code FuncCallExpr}
 	 * labeled alternative in {@link Mx_liteParser#expression}.

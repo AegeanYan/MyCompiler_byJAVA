@@ -4,6 +4,7 @@ public class BoolTypeNode extends BuiltinTypeNode{
     public BoolTypeNode(position pos){
         super(pos);
         this.id = "bool";
+        this.retType = "bool";
     }
     @Override
     public void accept(ASTVisitor visitor){

@@ -114,6 +114,30 @@ public class Mx_liteBaseListener implements Mx_liteListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterSuiteStmt(Mx_liteParser.SuiteStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSuiteStmt(Mx_liteParser.SuiteStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExpressionStmt(Mx_liteParser.ExpressionStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpressionStmt(Mx_liteParser.ExpressionStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterIfStmt(Mx_liteParser.IfStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -186,25 +210,13 @@ public class Mx_liteBaseListener implements Mx_liteListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterForinit(Mx_liteParser.ForinitContext ctx) { }
+	@Override public void enterPrimeStmt(Mx_liteParser.PrimeStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitForinit(Mx_liteParser.ForinitContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterForstop(Mx_liteParser.ForstopContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitForstop(Mx_liteParser.ForstopContext ctx) { }
+	@Override public void exitPrimeStmt(Mx_liteParser.PrimeStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -294,6 +306,54 @@ public class Mx_liteBaseListener implements Mx_liteListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterUnaryExpr(Mx_liteParser.UnaryExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUnaryExpr(Mx_liteParser.UnaryExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIndexExpr(Mx_liteParser.IndexExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIndexExpr(Mx_liteParser.IndexExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrefixExpr(Mx_liteParser.PrefixExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrefixExpr(Mx_liteParser.PrefixExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSuffixExpr(Mx_liteParser.SuffixExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSuffixExpr(Mx_liteParser.SuffixExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterNewExpr(Mx_liteParser.NewExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -318,18 +378,6 @@ public class Mx_liteBaseListener implements Mx_liteListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnaryExpr(Mx_liteParser.UnaryExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitUnaryExpr(Mx_liteParser.UnaryExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterThisExpr(Mx_liteParser.ThisExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -337,18 +385,6 @@ public class Mx_liteBaseListener implements Mx_liteListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitThisExpr(Mx_liteParser.ThisExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIndexExpr(Mx_liteParser.IndexExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIndexExpr(Mx_liteParser.IndexExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import Util.Type;
 import Util.position;
 public class ForStmtNode extends StmtNode{
-    public ForInitNode init;
-    public ForStopNode cond;
+    public ASTNode init;
+    public ExprNode cond;
     public ExprNode incre;
     public StmtNode stmt;
-    public ForStmtNode(ForInitNode _init, ForStopNode _cond, ExprNode _incre, StmtNode _stmt ,position pos){
+    public ForStmtNode(ASTNode _init, ExprNode _cond, ExprNode _incre, StmtNode _stmt ,position pos){
         super(pos);
         init = _init;
         cond = _cond;

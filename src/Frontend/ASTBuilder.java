@@ -4,6 +4,7 @@ import AST.*;
 import Parser.Mx_liteBaseVisitor;
 import Parser.Mx_liteVisitor;
 import Parser.Mx_liteParser;
+import Util.SemanticError;
 import Util.Type;
 import Util.globalScope;
 import Util.position;
@@ -34,11 +35,11 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
         String name = ctx.Identifier().toString();
         SuiteNode suite = (SuiteNode) visit(ctx.suite());
         String id;
-        if (retype instanceof VoidTypeNode)id = "void";
-        else if (retype instanceof IntTypeNode)id = "int";
-        else if (retype instanceof BoolTypeNode)id = "bool";
-        else if (retype instanceof ClassTypeNode)id = ((ClassTypeNode) retype).id;
-        else if (retype instanceof ArrayTypeNode)id = ((ArrayTypeNode) retype).varType.id;
+        if (retype instanceof VoidTypeNode){id = "void";retype.retType = "void";}
+        else if (retype instanceof IntTypeNode){id = "int";retype.retType = "int";}
+        else if (retype instanceof BoolTypeNode){id = "bool";retype.retType = "bool";}
+        else if (retype instanceof ClassTypeNode){id = ((ClassTypeNode) retype).id;retype.retType = id;}
+        else if (retype instanceof ArrayTypeNode){id = ((ArrayTypeNode) retype).varType.id;retype.retType = id;}
         else id = null;
         //ParaListNode para = (ctx.functionparameterDef() == null) ? null : (ParaListNode) visit(ctx.functionparameterDef());
         ArrayList<VarDefNode> var_defs = new ArrayList<VarDefNode>();
@@ -68,7 +69,7 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
                 else var_defs.add(new VarDefNode((VarTypeNode) visit(vtp.get(i)) , vdp.get(i).Identifier().toString() , null , new position(ctx)));
             }
         }
-        return new LambdaValNode(var_defs , suite , exprList , new position(ctx));
+        return new LambdaValNode(var_defs , suite , exprList , new position(ctx));//visit lambdadef时候返回一个lambdaval
     }
 
     @Override
@@ -81,7 +82,7 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
         ParaListNode para = new ParaListNode(new position(ctx));
         ctx.varType().forEach(cd -> para.par.add((VarTypeNode) visit(cd)));
         ctx.varDeclaration().forEach(vd -> para.decls.add((VarDeclNode) visit(vd)));
-        return para;
+        return para;//应该用不到了，所有的paralist的地方直接用链表做了
     }
 
     @Override
@@ -94,7 +95,9 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitSuite(Mx_liteParser.SuiteContext ctx) {
         SuiteNode suite = new SuiteNode(new position(ctx));
-        ctx.statement().forEach(cd -> suite.stmts.add((StmtNode) visit(cd)));
+        ctx.statement().forEach(cd -> {
+            suite.stmts.add((StmtNode) visit(cd));
+        });//这个地方变量声明是primenode而不是declstmt
         return suite;
     }
 
@@ -114,10 +117,13 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitForStmt(Mx_liteParser.ForStmtContext ctx) {
-        ForInitNode init = (ctx.forinit() == null) ? null : (ForInitNode) visit(ctx.forinit());
-        ForStopNode stop = (ctx.forstop() == null) ? null : (ForStopNode) visit(ctx.forstop());
-        ExprNode expr = (ctx.expression() == null) ? null : (ExprNode) visit(ctx.expression());
-        return new ForStmtNode(init,stop,expr,(StmtNode) visit(ctx.statement()) , new position(ctx));
+//        ForInitNode init = (ctx.forinit() == null) ? null : (ForInitNode) visit(ctx.forinit());
+//        ForStopNode stop = (ctx.forstop() == null) ? null : (ForStopNode) visit(ctx.forstop());
+//        ExprNode expr = (ctx.expression() == null) ? null : (ExprNode) visit(ctx.expression());
+        ASTNode init = (ctx.init == null) ? null :  visit(ctx.init);
+        ExprNode stop = (ctx.cond == null) ? null : (ExprNode) visit(ctx.cond);
+        ExprNode step = (ctx.step == null) ? null : (ExprNode) visit(ctx.step);
+        return new ForStmtNode(init,stop,step,(StmtNode) visit(ctx.statement()) , new position(ctx));
     }
 
     @Override
@@ -152,7 +158,7 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitClassDecl(Mx_liteParser.ClassDeclContext ctx) {
-        ClassDeclNode clas = new ClassDeclNode(((String) ctx.Identifier().toString()) , new position(ctx));
+        ClassDeclNode clas = new ClassDeclNode((ctx.Identifier().toString()) , new position(ctx));
         for (Mx_liteParser.SubClassDeclContext elements : ctx.subClassDecl()){
             if (elements.declarationStmt() != null)clas.declrs.add((DeclStmtNode) visit(elements.declarationStmt()));
             else if (elements.functionDef() != null)clas.declrs.add((FuncDefNode) visit(elements.functionDef()));
@@ -167,7 +173,7 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitIdExpr(Mx_liteParser.IdExprContext ctx) {
-        return new IdExprNode((IdValNode) visit(ctx.Identifier()) , new position(ctx));
+        return new IdExprNode(new IdValNode(ctx.Identifier().toString() , new position(-1,-1)) , new position(ctx));
     }
 
     @Override
@@ -211,7 +217,14 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitMemberAccessExpr(Mx_liteParser.MemberAccessExprContext ctx) {
         ExprListNode exprlist = (ctx.expressionList() == null) ? null : (ExprListNode) visit(ctx.expressionList());
-        return new MemberAccessExprNode(((ExprNode) visit(ctx.expression())) , ((IdValNode) visit(ctx.Identifier())) , exprlist , new position(ctx));
+        MemberAccessExprNode ret = new MemberAccessExprNode(((ExprNode) visit(ctx.expression())) , new IdValNode(ctx.Identifier().toString() , new position(ctx)) , exprlist , new position(ctx));
+        if (ctx.LeftParen().size() == 0){
+            ret.forfunc = false;
+        }
+        else {
+            ret.forfunc = true;
+        }
+        return ret;
     }
 
     @Override
@@ -242,6 +255,7 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
         FuncCallExprNode funcall = new FuncCallExprNode(new position(ctx));
         funcall.name = (String) ctx.Identifier().toString();
         funcall.expr = (ctx.expressionList() == null) ? null : (ExprListNode) visit(ctx.expressionList());
+
         return funcall;
     }
 
@@ -259,7 +273,7 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
             ExprNode init = (element.expression() == null) ? null : (ExprNode) visit(element.expression());
             var_defs.add(new VarDefNode(varType , id , init , new position(ctx)));
         }
-        return new DeclStmtNode(var_defs , new position(ctx));
+        return new DeclStmtNode(var_defs , new position(ctx));//访问vardef返回一个Declstmtnode
     }
 
     @Override
@@ -321,8 +335,8 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
 //            else if (ctx.builtinType().String() != null)return new StringTypeNode(new position(ctx));
 //            else return new ClassTypeNode(ctx.builtinType().Identifier().toString() , new position(ctx));
 //        }
-        if (ctx.builtinType() != null)return visit(ctx.builtinType());
-        else if (ctx.arrayType() != null)return visit(ctx.arrayType());
+        if (ctx.arrayType() != null)return visit(ctx.arrayType());
+        else if (ctx.builtinType() != null)return visit(ctx.builtinType());
         else return null;
     }
 
@@ -347,7 +361,7 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
     @Override
     public ASTNode visitConstant(Mx_liteParser.ConstantContext ctx) {
         position pos = new position(ctx);
-        if (ctx.DecimalInteger() != null) return new IntValNode(Integer.parseInt(ctx.DecimalInteger().toString()) , new position(ctx));
+        if (ctx.DecimalInteger() != null) return new IntValNode(Long.parseLong(ctx.DecimalInteger().toString()), new position(ctx));
         else if (ctx.StringConstant() != null) return new StringValNode(ctx.StringConstant().toString() , new position(ctx));
         else if (ctx.Boolconstant() != null) {
             if (Objects.equals(ctx.Boolconstant().toString(), "true"))return new BoolValNode(true , new position(ctx));
@@ -356,5 +370,43 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
         else if (ctx.Nullconstant() != null) return new NullValNode(new position(ctx));
         else return null;
     }
-
+    @Override
+    public ASTNode visitPrimeStmt(Mx_liteParser.PrimeStmtContext ctx) {
+        VarTypeNode varType = (VarTypeNode) visit(ctx.varDef().varType());
+        ArrayList<VarDefNode> var_defs = new ArrayList<>();
+        for (Mx_liteParser.VarDeclarationContext element : ctx.varDef().varDeclaration()){
+            String id = element.Identifier().getText();
+            ExprNode init = (element.expression() == null) ? null : (ExprNode) visit(element.expression());
+            var_defs.add(new VarDefNode(varType , id , init , new position(ctx)));
+        }
+        return new PrimeStmtNode(var_defs , new position(ctx));//访问vardef返回一个Declstmtnode
+    }
+    @Override
+    public ASTNode visitExpressionStmt(Mx_liteParser.ExpressionStmtContext ctx) {
+        return new ExprStmtNode((ExprNode) visit(ctx.expression()) , new position(ctx));
+    }
+    @Override
+    public ASTNode visitSuiteStmt(Mx_liteParser.SuiteStmtContext ctx) {
+        return new SuiteStmtNode((SuiteNode) visit(ctx.suite()) , new position(ctx));
+    }
+    @Override
+    public ASTNode visitSuffixExpr(Mx_liteParser.SuffixExprContext ctx) {
+        String op = ctx.op.getText();
+        SuffixExprNode.SufOp operat = switch (op){
+            case "++" -> SuffixExprNode.SufOp.INC;
+            case "--" -> SuffixExprNode.SufOp.DEC;
+            default -> throw new RuntimeException("[debug] Suffix");
+        };
+        return new SuffixExprNode((ExprNode) visit(ctx.expression()),operat , new position(ctx));
+    }
+    @Override
+    public ASTNode visitPrefixExpr(Mx_liteParser.PrefixExprContext ctx) {
+        String op = ctx.op.getText();
+        PrefixExprNode.PreOp operat = switch (op){
+            case "++" -> PrefixExprNode.PreOp.INC;
+            case "--" -> PrefixExprNode.PreOp.DEC;
+            default -> throw new RuntimeException("[debug] Prefix");
+        };
+        return new PrefixExprNode((ExprNode) visit(ctx.expression()) , operat , new position(ctx));
+    }
 }

@@ -61,6 +61,18 @@ public interface Mx_liteVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatement(Mx_liteParser.StatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link Mx_liteParser#suiteStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSuiteStmt(Mx_liteParser.SuiteStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link Mx_liteParser#expressionStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionStmt(Mx_liteParser.ExpressionStmtContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code IfStmt}
 	 * labeled alternative in {@link Mx_liteParser#controlStmt}.
 	 * @param ctx the parse tree
@@ -103,17 +115,11 @@ public interface Mx_liteVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBreakStmt(Mx_liteParser.BreakStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link Mx_liteParser#forinit}.
+	 * Visit a parse tree produced by {@link Mx_liteParser#primeStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitForinit(Mx_liteParser.ForinitContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link Mx_liteParser#forstop}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitForstop(Mx_liteParser.ForstopContext ctx);
+	T visitPrimeStmt(Mx_liteParser.PrimeStmtContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link Mx_liteParser#declarationStmt}.
 	 * @param ctx the parse tree
@@ -161,6 +167,34 @@ public interface Mx_liteVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBinaryExpr(Mx_liteParser.BinaryExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code UnaryExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUnaryExpr(Mx_liteParser.UnaryExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code IndexExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIndexExpr(Mx_liteParser.IndexExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PrefixExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrefixExpr(Mx_liteParser.PrefixExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code SuffixExpr}
+	 * labeled alternative in {@link Mx_liteParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSuffixExpr(Mx_liteParser.SuffixExprContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code NewExpr}
 	 * labeled alternative in {@link Mx_liteParser#expression}.
 	 * @param ctx the parse tree
@@ -175,26 +209,12 @@ public interface Mx_liteVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMemberAccessExpr(Mx_liteParser.MemberAccessExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code UnaryExpr}
-	 * labeled alternative in {@link Mx_liteParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitUnaryExpr(Mx_liteParser.UnaryExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ThisExpr}
 	 * labeled alternative in {@link Mx_liteParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitThisExpr(Mx_liteParser.ThisExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code IndexExpr}
-	 * labeled alternative in {@link Mx_liteParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIndexExpr(Mx_liteParser.IndexExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code FuncCallExpr}
 	 * labeled alternative in {@link Mx_liteParser#expression}.

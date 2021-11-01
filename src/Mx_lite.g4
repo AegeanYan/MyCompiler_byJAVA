@@ -17,26 +17,29 @@ expressionList: expression (',' expression)*;
 suite: '{' statement* '}';
 
 statement
-: suite
-| declarationStmt
+: suiteStmt
+| primeStmt
 | controlStmt
-| expression ';'
+| expressionStmt
 | ';'
 ;
 
+suiteStmt:suite;
+expressionStmt:expression ';';
+
 controlStmt
-: If '(' expression ')' trueStmt=statement (Else falseStmt=statement)?              #IfStmt
+: If '(' cond = expression ')' trueStmt=statement (Else falseStmt=statement)?              #IfStmt
 | Return expression? ';'                                                            #ReturnStmt
-| For '(' init=forinit? ';' cond=forstop?';'step=expression?')'statement      #ForStmt
+| For '(' init=expression? ';' cond=expression?';'step=expression?')'statement      #ForStmt
 | While '(' expression ')' statement                                                #WhileStmt
 | Continue ';'                                                                      #ContinueStmt
 | Break ';'                                                                         #BreakStmt
 ;
 
-forinit:expression | varDef;
-
-forstop:expression;
-
+//forinit:expression | varDef;
+//
+//forstop:expression;
+primeStmt:varDef';';
 declarationStmt: varDef ';';
 
 classDecl: Class Identifier '{' subClassDecl* '}' ';';
@@ -55,10 +58,9 @@ expression
 | expression '.' '('Identifier ('('expressionList?')')? ')'                                                #MemberAccessExpr
 | array=expression '[' index=expression ']'                                 #IndexExpr
 //| expression '(' expressionList? ')'                                        #FunctionCallExpr
-
-| expression op = ('++' | '--')                                             #UnaryExpr
 | <assoc=right>
-    op = ('++' | '--') expression                                           #UnaryExpr
+    op = ('++' | '--') expression                                           #PrefixExpr
+| expression op = ('++' | '--')                                             #SuffixExpr
 | <assoc=right>
     op = ('+' | '-') expression                                             #UnaryExpr
 | <assoc=right>
@@ -73,7 +75,7 @@ expression
 | expression op = '|' expression                                            #BinaryExpr
 | expression op = '&&' expression                                           #BinaryExpr
 | expression op = '||' expression                                           #BinaryExpr
-| <assoc=right> expression '=' expression                                   #BinaryExpr
+| <assoc=right> expression op = '=' expression                                   #BinaryExpr
 ;
 
 varDef: varType varDeclaration (',' varDeclaration)*;
@@ -82,6 +84,7 @@ varDeclaration:Identifier ('=' expression)?;
 creator
 : builtinType ('['']')+('['expression']')*                   #WrongArrayCreator1
 | builtinType ('['expression']')+('['']')+('['expression']')+ #WrongArrayCreator2
+| builtinType ('['expression']')+('['']')+('['expression']')+('['']')+ #WrongArrayCreator2
 | builtinType ('['expression']')+('['']')*                    #NewArrayCreator
 | builtinType '(' ')'                                         #NewClass
 | builtinType                                                 #NewNArray
@@ -108,7 +111,7 @@ Boolconstant
 Nullconstant: Null;
 //reserved words
 StringConstant
-:'"' (. | BackSlash | DbQuotation)*? '"';
+:'"' (BackSlash | DbQuotation|.)*? '"';
 
 Int : 'int';
 Bool : 'bool';

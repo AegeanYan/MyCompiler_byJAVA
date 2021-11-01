@@ -11,9 +11,9 @@ public class BuiltInitor {
         ArrayList<VarDefNode> vardef_list = new ArrayList<>();
         vardef_list.add(new VarDefNode(new ClassTypeNode("string" , new position(-1 , -1)) , "str" , null , new position(-1 , -1)));
         FuncDefNode func = new FuncDefNode(new VoidTypeNode(new position(-1, -1)) ,"void" ,"print" , vardef_list , null , new position(-1,-1));
-        initScope.add_Func("println" , func);
+        initScope.add_Func("print" , func);
 
-        func = new FuncDefNode(new VoidTypeNode(new position(-1,-1)) , "basic" , "println" , vardef_list , null , new position(-1, -1));
+        func = new FuncDefNode(new VoidTypeNode(new position(-1,-1)) , "void" , "println" , vardef_list , null , new position(-1, -1));
         initScope.add_Func("println" , func);
 
         vardef_list = new ArrayList<>();
@@ -33,7 +33,7 @@ public class BuiltInitor {
         vardef_list = new ArrayList<>();
         vardef_list.add(new VarDefNode(new ClassTypeNode("int" , new position(-1,-1)) , "i" , null , new position(-1,-1)));
         func = new FuncDefNode(new ClassTypeNode("string" , new position(-1,-1)) , "string" , "toString" , vardef_list , null , new position(-1 , -1));
-
+        initScope.add_Func("toString" , func);
 
         initScope.add_Class("bool" , new globalScope(initScope));
         initScope.add_Class("int" , new globalScope(initScope));

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import Util.Type;
 import Util.position;
 public class PrimeStmtNode extends StmtNode{
-    public VarDefNode varDef;
-    public PrimeStmtNode(VarDefNode _varDef , position pos){
+    public ArrayList<VarDefNode> var_defs;
+    public PrimeStmtNode(ArrayList<VarDefNode> vars , position pos){
         super(pos);
-        varDef = _varDef;
+        var_defs = vars;
     }
     @Override
     public void accept(ASTVisitor visitor){

@@ -13,8 +13,8 @@ public class PreProcessor implements ASTVisitor{
     @Override
     public void visit(RootNode node) {
         node.declrs.forEach(cd -> cd.accept(this));
-        if (!this.gScope.contain_Func("main") || !this.gScope.fetch_Func("main").retnode.isEqual(new ClassTypeNode("int" , new position(-1,-1))))throw new SemanticError("main function not found or not int" , node.getPos());
-        else if (this.gScope.fetch_Func("main").paralist != null) throw new SemanticError("main funtion para is not null" , node.getPos());
+        if (!this.gScope.contain_Func("main") || !this.gScope.fetch_Func("main").retnode.retType.equals("int"))throw new SemanticError("main function not found or not int" , node.getPos());
+        else if (this.gScope.fetch_Func("main").paralist.size() != 0) throw new SemanticError("main funtion para is not null" , node.getPos());
     }
 
     @Override
@@ -268,10 +268,6 @@ public class PreProcessor implements ASTVisitor{
 
     }
 
-    @Override
-    public void visit(NewArrayNode node) {
-
-    }
 
     @Override
     public void visit(FuncValNode node) {

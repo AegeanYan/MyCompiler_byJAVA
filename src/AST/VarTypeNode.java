@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import Util.position;
 public abstract class VarTypeNode extends ReturnTypeNode{
-    public String id;
+    public String id;//base
     public VarTypeNode(position pos){
         super(pos);
     }

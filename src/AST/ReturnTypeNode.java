@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import Util.Type;
 import Util.position;
 public abstract class ReturnTypeNode extends ASTNode{
-    public String retType;//retType是ruturntype的base
+    public String retType;//retType是ruturntype的base 即不是数组
     public ReturnTypeNode(position pos){
         super(pos);
     }

@@ -14,8 +14,11 @@ public class ArrayTypeNode extends VarTypeNode{
         else {
             varType = _varType;
             dims = 1;
+
         }
         this.id = varType.id;
+        this.retType = this.id;
+
     }
     public ArrayTypeNode(VarTypeNode _varType , int dim , position pos){
         super(pos);

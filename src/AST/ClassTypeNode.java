@@ -8,6 +8,7 @@ public class ClassTypeNode extends BuiltinTypeNode{
         super(pos);
         this.name = name;
         this.id = name;
+        this.retType = name;
     }
     @Override
     public void accept(ASTVisitor visitor){

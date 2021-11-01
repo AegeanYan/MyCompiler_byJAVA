@@ -27,6 +27,8 @@ public class BinaryExprNode extends ExprNode{
         lhs = _lhs;
         rhs = _rhs;
         op = _op;
+//        this.expr_ret = lhs.expr_ret;
+//        this.expr_ret.retType = lhs.expr_ret.retType;
     }
     @Override
     public void accept(ASTVisitor visitor){

@@ -6,6 +6,7 @@ public class StringTypeNode extends BuiltinTypeNode{
     public StringTypeNode(position pos){
         super(pos);
         this.id = "string";
+        this.retType = "string";
     }
     @Override
     public void accept(ASTVisitor visitor){
