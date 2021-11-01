@@ -1,44 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="10.30 semantic not finished">
-      <change afterPath="$PROJECT_DIR$/build.bash" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/codegen.bash" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/ArrayTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ArrayTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/BinaryExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/BinaryExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/BoolTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/BoolTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/ClassTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ClassTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/ConstExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ConstExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/ConstantNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ConstantNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/ExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/ForStmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ForStmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/IdExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/IdExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/IntTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/IntTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/MemberAccessExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/MemberAccessExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/NewExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/NewExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/PrimeStmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/PrimeStmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/ReturnTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ReturnTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/StmtNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/StmtNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/StringTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/StringTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/SubExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/SubExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/VarTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/VarTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/VoidTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/VoidTypeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Frontend/ASTBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/ASTBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Frontend/BuiltInitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/BuiltInitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Frontend/PreProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/PreProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Frontend/SemanicChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/SemanicChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Mx_lite.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mx_lite.g4" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Mx_lite.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Mx_lite.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Mx_liteBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Mx_liteBaseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Mx_liteBaseVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Mx_liteBaseVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Mx_liteLexer.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Mx_liteLexer.interp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Mx_liteLexer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Mx_liteLexer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Mx_liteListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Mx_liteListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Mx_liteParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Mx_liteParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Parser/Mx_liteVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Parser/Mx_liteVisitor.java" afterDir="false" />
-    </list>
+    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="11.1啊对对对" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +50,7 @@
       <workItem from="1634484580696" duration="1000" />
       <workItem from="1634559306574" duration="1373000" />
       <workItem from="1635608791370" duration="220000" />
-      <workItem from="1635777886501" duration="316000" />
+      <workItem from="1635777886501" duration="731000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -103,7 +66,21 @@
       <option name="project" value="LOCAL" />
       <updated>1635608955388</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="11.1啊对对对">
+      <created>1635778308320</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1635778308320</updated>
+    </task>
+    <task id="LOCAL-00004" summary="11.1啊对对对">
+      <created>1635778419838</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1635778419838</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,6 +101,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="g4 finished" />
     <MESSAGE value="10.30 semantic not finished" />
-    <option name="LAST_COMMIT_MESSAGE" value="10.30 semantic not finished" />
+    <MESSAGE value="11.1啊对对对" />
+    <option name="LAST_COMMIT_MESSAGE" value="11.1啊对对对" />
   </component>
 </project>
