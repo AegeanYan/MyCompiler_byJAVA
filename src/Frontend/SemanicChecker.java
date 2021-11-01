@@ -510,11 +510,11 @@ public class SemanicChecker implements ASTVisitor {
         if (node.var_defs != null)node.var_defs.forEach(cd->cd.accept(this));
         if (node.exprListNode != null)node.exprListNode.exprs.forEach(cd->cd.accept(this));
         if (node.var_defs == null || node.exprListNode == null){
-            if (!(node.var_defs == null && node.exprListNode == null))throw new SemanticError("Lambda var error" , node.pos);
+            if (!((node.var_defs == null || node.var_defs.size() == 0) && (node.exprListNode == null || node.exprListNode.exprs.size() == 0)))throw new SemanticError("Lambda var error" , node.pos);
         }else {
             if (node.var_defs.size() != node.exprListNode.exprs.size())throw new SemanticError("Lambda var error", node.pos);
             for (int i = 0;i < node.var_defs.size();++i){
-                if (!node.var_defs.get(i).type.isEqual(node.exprListNode.exprs.get(i).expr_ret))throw new SemanticError("Lambda var error" , node.pos);
+                if (!node.var_defs.get(i).type.isEqual(node.exprListNode.exprs.get(i).expr_ret) && !node.var_defs.get(i).type.retType.equals(node.exprListNode.exprs.get(i).expr_ret.retType))throw new SemanticError("Lambda var error" , node.pos);
             }
         }
         node.suiteNode.stmts.forEach(cd->cd.accept(this));
