@@ -92,6 +92,9 @@ public class SemanicChecker implements ASTVisitor {
             if (node.init != null){
                 node.init.accept(this);
                 if (!node.init.expr_ret.retType.equals("null") && !node.init.expr_ret.isEqual(null_type) && !node.init.expr_ret.isEqual(node.type) && !node.init.expr_ret.retType.equals(node.type.retType)) throw new SemanticError("Type not same in vardecl"+node.id , node.pos);
+                if (node.type instanceof ArrayTypeNode){
+                    if (!(node.init.expr_ret instanceof ArrayTypeNode) || ((ArrayTypeNode) node.type).dims != ((ArrayTypeNode) node.init.expr_ret).dims)throw new SemanticError("Type dismatch in vardecl"+node.id , node.pos);
+                }
             }
             currentScope.add_Var(node.id , node.type);
         }
@@ -291,6 +294,9 @@ public class SemanicChecker implements ASTVisitor {
             case ASSIGNEQ -> {
                 if (!node.lhs.isAssignable)throw new SemanticError("not assignable in binar" , node.pos);
                 if (!ltype.retType.equals(node.rhs.expr_ret.retType) && !ltype.isEqual(node.rhs.expr_ret) && !node.rhs.expr_ret.isEqual(null_type))throw new SemanticError("dismatched assign" , node.pos);
+                if (ltype instanceof ArrayTypeNode){
+                    if (!(node.rhs.expr_ret instanceof ArrayTypeNode) || !(((ArrayTypeNode) ltype).dims == ((ArrayTypeNode) node.rhs.expr_ret).dims))throw new SemanticError("dismatched assign" , node.pos);
+                }
                 if (node.rhs.expr_ret.retType.equals("null") && node.rhs.expr_ret.isEqual(null_type)){
                     if (ltype.isEqual(int_type) || ltype.isEqual(bool_type) || ltype.isEqual(null_type))throw new SemanticError("null cannot be assigned to ..." , node.pos);
                 }
