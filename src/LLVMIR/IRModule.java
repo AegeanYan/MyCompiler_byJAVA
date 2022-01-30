@@ -26,75 +26,75 @@ public class IRModule {
         function.addParameter(new IntegerType(64));
         builtInFunctions.put("malloc" , function);
 
-        builtInFunctionName.add("builtin_String_add_");
-        function = new IRFunction("builtin_String_add_" , new PointerType(new IntegerType(8)));
+        builtInFunctionName.add("string_add");
+        function = new IRFunction("string_add" , new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_add_" , function);
+        builtInFunctions.put("string_add" , function);
 
-        builtInFunctionName.add("builtin_String_less_than_");
-        function = new IRFunction("builtin_String_less_than_" , new BoolType());
+        builtInFunctionName.add("string_lt");
+        function = new IRFunction("string_lt" , new BoolType());
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_less_than_" , function);
+        builtInFunctions.put("string_lt" , function);
 
-        builtInFunctionName.add("builtin_String_greater_than_");
-        function = new IRFunction("builtin_String_greater_than_" , new BoolType());
+        builtInFunctionName.add("string_gt");
+        function = new IRFunction("string_gt" , new BoolType());
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_greater_than_" , function);
+        builtInFunctions.put("string_gt" , function);
 
-        builtInFunctionName.add("builtin_String_greater_equal_");
-        function = new IRFunction("builtin_String_greater_equal_" , new BoolType());
+        builtInFunctionName.add("string_ge");
+        function = new IRFunction("string_ge" , new BoolType());
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_greater_equal_" , function);
+        builtInFunctions.put("string_ge" , function);
 
-        builtInFunctionName.add("builtin_String_less_equal_");
-        function = new IRFunction("builtin_String_less_equal_" , new BoolType());
+        builtInFunctionName.add("string_le");
+        function = new IRFunction("string_le" , new BoolType());
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_less_equal_" , function);
+        builtInFunctions.put("string_le" , function);
 
-        builtInFunctionName.add("builtin_String_equal_");
-        function = new IRFunction("builtin_String_equal_" , new BoolType());
+        builtInFunctionName.add("string_eq");
+        function = new IRFunction("string_eq" , new BoolType());
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_equal_" , function);
+        builtInFunctions.put("string_eq" , function);
 
-        builtInFunctionName.add("builtin_String_not_equal_");
-        function = new IRFunction("builtin_String_not_equal_" , new BoolType());
+        builtInFunctionName.add("string_ne");
+        function = new IRFunction("string_ne" , new BoolType());
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_not_equal_" , function);
+        builtInFunctions.put("string_ne" , function);
 
-        builtInFunctionName.add("builtin_String_length_");
-        function = new IRFunction("builtin_String_length_" , new IntegerType(32));
+        builtInFunctionName.add("string_length");
+        function = new IRFunction("string_length" , new IntegerType(32));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_length_" , function);
+        builtInFunctions.put("string_length" , function);
 
-        builtInFunctionName.add("builtin_String_substring_");
-        function = new IRFunction("builtin_String_substring_" , new PointerType(new IntegerType(8)));
+        builtInFunctionName.add("string_subString");
+        function = new IRFunction("string_subString" , new PointerType(new IntegerType(8)));
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new IntegerType(32));
         function.addParameter(new IntegerType(32));
-        builtInFunctions.put("builtin_String_substring_" , function);
+        builtInFunctions.put("string_subString" , function);
 
-        builtInFunctionName.add("builtin_String_parseInt_");
-        function = new IRFunction("builtin_String_parseInt_" , new IntegerType(32));
+        builtInFunctionName.add("string_parseInt");
+        function = new IRFunction("string_parseInt" , new IntegerType(32));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_String_parseInt_" , function);
+        builtInFunctions.put("string_parseInt" , function);
 
-        builtInFunctionName.add("builtin_String_ord_");
-        function = new IRFunction("builtin_String_ord_" , new IntegerType(32));
+        builtInFunctionName.add("string_ord");
+        function = new IRFunction("string_ord" , new IntegerType(32));
         function.addParameter(new PointerType(new IntegerType(8)));
         function.addParameter(new IntegerType(32));
-        builtInFunctions.put("builtin_String_ord_" , function);
+        builtInFunctions.put("string_ord" , function);
 
-        builtInFunctionName.add("builtin_array_size_");
-        function = new IRFunction("builtin_array_size_" , new IntegerType(32));
+        builtInFunctionName.add("array_size");
+        function = new IRFunction("array_size" , new IntegerType(32));
         function.addParameter(new PointerType(new IntegerType(8)));
-        builtInFunctions.put("builtin_array_size_" , function);
+        builtInFunctions.put("array_size" , function);
 
         builtInFunctionName.add("print");
         function = new IRFunction("print" , new VoidType());

@@ -610,7 +610,7 @@ public class IRBuilder implements ASTVisitor {
                             ArrayList<IRConstant> args = new ArrayList<>();
                             args.add(lhs);
                             args.add(rhs);
-                            curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("builtin_String_add_") , args));
+                            curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("string_add") , args));
                         }
                         break;
                     }
@@ -628,10 +628,10 @@ public class IRBuilder implements ASTVisitor {
                             args.add(lhs);
                             args.add(rhs);
                             switch (node.op){
-                                case LT :curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("builtin_String_less_than_") , args));break;
-                                case GT :curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("builtin_String_greater_than_") , args));break;
-                                case LEQ:curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("builtin_String_less_equal_") , args));break;
-                                case GEQ:curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("builtin_String_greater_equal_") , args));break;
+                                case LT :curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("string_lt") , args));break;
+                                case GT :curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("string_gt") , args));break;
+                                case LEQ:curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("string_le") , args));break;
+                                case GEQ:curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("string_ge") , args));break;
                             }
                         }
                         break;
@@ -658,8 +658,8 @@ public class IRBuilder implements ASTVisitor {
                             args.add(lhs);
                             args.add(rhs);
                             switch (node.op){
-                                case EQ:curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("builtin_String_equal_") , args));break;
-                                case NEQ:curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("builtin_String_not_equal_") , args));break;
+                                case EQ:curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("string_eq") , args));break;
+                                case NEQ:curBlock.addInstr(new Call((VirtualReg) result , targetModule.getFunc("string_ne") , args));break;
                             }
                         }else {
                             switch (node.op){
@@ -896,12 +896,12 @@ public class IRBuilder implements ASTVisitor {
                     thisCastReg = new VirtualReg(new PointerType(new IntegerType(8)) , curFunc.takeLabel());
                     curBlock.addInstr(new Bitcast((VirtualReg) thisReg , thisCastReg));
                     funcArgs.add(thisCastReg);
-                    func = targetModule.getBuiltinFunc("builtin_array_size_");
+                    func = targetModule.getBuiltinFunc("array_size");
                 }else {
-                    if (node.member.name.equals("length"))func = targetModule.getBuiltinFunc("builtin_String_length_");
-                    else if (node.member.name.equals("substring"))func = targetModule.getBuiltinFunc("builtin_String_substring_");
-                    else if (node.member.name.equals("parseInt"))func = targetModule.getBuiltinFunc("builtin_String_parseInt_");
-                    else if (node.member.name.equals("ord"))func = targetModule.getBuiltinFunc("builtin_String_ord_");
+                    if (node.member.name.equals("length"))func = targetModule.getBuiltinFunc("string_length");
+                    else if (node.member.name.equals("substring"))func = targetModule.getBuiltinFunc("string_subString");
+                    else if (node.member.name.equals("parseInt"))func = targetModule.getBuiltinFunc("string_parseInt");
+                    else if (node.member.name.equals("ord"))func = targetModule.getBuiltinFunc("string_ord");
                     else throw new IRError("unknown func in memberaccess" , node.pos);
                     funcArgs.add(0 , thisReg);
                 }
