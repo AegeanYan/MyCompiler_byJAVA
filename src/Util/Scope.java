@@ -28,6 +28,8 @@ public class Scope {
         else return null;
     }
 
+
+
     public boolean contain_Var(String id){
         return Var_Table.containsKey(id);
     }

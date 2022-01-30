@@ -1,5 +1,9 @@
 //import AST.*;
 //import Frontend.*;
+import LLVMIR.IRBasicBlock;
+import LLVMIR.IRFunction;
+import LLVMIR.IRModule;
+import LLVMIR.Type.VoidType;
 import Util.*;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -10,13 +14,22 @@ import Frontend.*;
 import AST.*;
 import java.io.FileInputStream;
 import java.io.*;
-
+import RISCV.*;
+import Backend.*;
 public class Main{
     public static void main(String[] args) throws Exception {
-        InputStream input = System.in;
-        //String name = "test.yx";
-        //InputStream input = new FileInputStream(name);
-
+        //InputStream input = System.in;
+        String name = "test.yx";
+        InputStream input = new FileInputStream(name);
+        String asmOutputfile = "output.s";
+        PrintStream asmOutput = new PrintStream(asmOutputfile);
+        boolean Semantic = false;
+        for (String str : args){
+            if (str.equals("-fsyntax-only")){
+                Semantic = true;
+                break;
+            }
+        }
         try{
             Mx_liteLexer lexer = new Mx_liteLexer(CharStreams.fromStream(input));
             lexer.removeErrorListeners();
@@ -30,6 +43,7 @@ public class Main{
 
             ASTBuilder test = new ASTBuilder();
             RootNode rt = (RootNode) test.visit(parseTreeRoot);
+
             globalScope gscope = new globalScope(null);
             BuiltInitor initialer = new BuiltInitor();
             gscope = initialer.init(gscope);
@@ -37,10 +51,24 @@ public class Main{
             preProcessor.visit(rt);
             SemanicChecker semanicChecker = new SemanicChecker(gscope);
             semanicChecker.visit(rt);
+            if (Semantic)return;
+
+            IRBuilder irBuilder = new IRBuilder();
+            rt.accept(irBuilder);
+            IRModule module = irBuilder.targetModule;
+//            IRPrinter printer = new IRPrinter(System.out);
+//            printer.visit(module);
+
+            AsmBuilder asmBuilder = new AsmBuilder();
+            module.accept(asmBuilder);
+            asmmodule asmmodule = asmBuilder.getRoot();
+            AsmPrinter asmPrinter = new AsmPrinter(asmOutput);
+            asmPrinter.visit(asmmodule);
 
         } catch (RuntimeException re) {
             System.err.println(re.getMessage());
             throw new RuntimeException();
         }
+
     }
 }

@@ -272,6 +272,7 @@ public class SemanicChecker implements ASTVisitor {
         }
         node.expr_ret = node.rhs.expr_ret;
         node.isAssignable = false;
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
@@ -281,6 +282,7 @@ public class SemanicChecker implements ASTVisitor {
         if (!node.lhs.expr_ret.retType.equals(node.rhs.expr_ret.retType) && !node.lhs.expr_ret.isEqual(node.rhs.expr_ret) && node.op != BinaryExprNode.BinaryOp.ASSIGNEQ && node.op != BinaryExprNode.BinaryOp.EQ && node.op != BinaryExprNode.BinaryOp.NEQ)throw new SemanticError("type dismatch in Binarexpr 1" , node.pos);
         ReturnTypeNode ltype = node.lhs.expr_ret;
         node.isAssignable = false;
+        node.catagory = ExprNode.Catagory.RVALUE;
         switch (node.op){
             case ADD , GT , LT , GEQ , LEQ-> {
                 if (!ltype.retType.equals("int") && !ltype.isEqual(int_type) && !ltype.isEqual(string_type) && !ltype.retType.equals("string"))throw new SemanticError("add gt lt geq leq false" , node.pos);
@@ -301,6 +303,7 @@ public class SemanicChecker implements ASTVisitor {
                     if (ltype.isEqual(int_type) || ltype.isEqual(bool_type) || ltype.isEqual(null_type))throw new SemanticError("null cannot be assigned to ..." , node.pos);
                 }
                 node.isAssignable = true;
+                node.catagory = ExprNode.Catagory.LVALUE;
             }
             case EQ , NEQ ->{
                 if (!ltype.retType.equals(node.rhs.expr_ret.retType) && !ltype.isEqual(node.rhs.expr_ret) && !node.rhs.expr_ret.isEqual(null_type) && !node.rhs.expr_ret.retType.equals("null"))throw new SemanticError("dismatched eq" , node.pos);
@@ -315,6 +318,8 @@ public class SemanicChecker implements ASTVisitor {
     @Override
     public void visit(ConstExprNode node) {
         //
+        node.cons.accept(this);
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
@@ -344,11 +349,13 @@ public class SemanicChecker implements ASTVisitor {
 
     @Override
     public void visit(IdExprNode node) {
+        node.id.accept(this);
         ReturnTypeNode id_type = currentScope.fetch_VarType(node.id.name);
         if (id_type == null)throw new SemanticError("Undefined var"+node.id.name , node.pos);
         node.isAssignable = true;
         node.expr_ret = id_type;
         node.expr_ret.retType = id_type.retType;
+        node.catagory = ExprNode.Catagory.LVALUE;
     }
 
     @Override
@@ -361,12 +368,14 @@ public class SemanicChecker implements ASTVisitor {
         else node.expr_ret = new ArrayTypeNode(new ClassTypeNode(node.array.expr_ret.retType , pos) , ((ArrayTypeNode) node.array.expr_ret).dims - 1 , node.pos);
         node.expr_ret.retType = node.array.expr_ret.retType;
         node.isAssignable = true;
+        node.catagory = ExprNode.Catagory.LVALUE;
     }
 
     @Override
     public void visit(LambDefExprNode node) {
         node.lamb.accept(this);
         node.expr_ret = node.lamb.returnTypeNode;
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
@@ -387,6 +396,8 @@ public class SemanicChecker implements ASTVisitor {
 //            }
 //        }
         node.object.accept(this);
+        node.member.accept(this);
+        if (node.exprlist != null)node.exprlist.accept(this);
         if (!gScope.contain_Class(node.object.expr_ret.retType))throw new SemanticError("no such class" + node.object.expr_ret.retType , node.pos);
         ClassDeclNode classdec;
         if (node.object.expr_ret instanceof ArrayTypeNode){
@@ -396,18 +407,22 @@ public class SemanicChecker implements ASTVisitor {
             node.funcInfo = array_size;
             node.expr_ret = int_type;
             node.expr_ret.retType = "int";
+            node.catagory = ExprNode.Catagory.RVALUE;
         }else {
             if (node.forfunc){
                 node.funcInfo = gScope.Class_Table.get(node.object.expr_ret.retType).fetch_Func(node.member.name);
                 if (node.funcInfo == null)throw new SemanticError("Class"+node.object.expr_ret.retType + "has no func" + node.member.name , node.pos);
                 node.expr_ret = node.funcInfo.retnode;
                 node.expr_ret.retType = node.funcInfo.retnode.retType;
+                node.catagory = ExprNode.Catagory.RVALUE;
             }else{
                 node.expr_ret = gScope.Class_Table.get(node.object.expr_ret.retType).Var_Table.get(node.member.name);
                 if (node.expr_ret == null)throw new SemanticError("Class" + node.object.expr_ret.retType + "has no var" + node.member.name , node.pos);
                 node.isAssignable = true;
+                node.catagory = ExprNode.Catagory.LVALUE;
             }
         }
+
     }
 
     @Override
@@ -418,6 +433,7 @@ public class SemanicChecker implements ASTVisitor {
             else node.expr_ret = new ClassTypeNode(((NewNode) node.creator).types.id , node.pos);
             node.isAssignable = false;
         }
+        node.catagory = ((NewNode)node.creator).catagory;
     }
 
     @Override
@@ -432,6 +448,7 @@ public class SemanicChecker implements ASTVisitor {
         node.expr_ret = node.rhs.expr_ret;
         node.expr_ret.retType = node.rhs.expr_ret.retType;
         node.isAssignable = true;
+        node.catagory = ExprNode.Catagory.LVALUE;
     }
 
     @Override
@@ -443,6 +460,7 @@ public class SemanicChecker implements ASTVisitor {
                 if (!cd.expr_ret.retType.equals("int") && !cd.expr_ret.isEqual(int_type)) throw new SemanticError("Array size should be int" , node.pos);
             });
         }
+        node.catagory = ExprNode.Catagory.LVALUE;
     }
 
     @Override
@@ -451,6 +469,7 @@ public class SemanicChecker implements ASTVisitor {
         node.expr_ret = node.expr.expr_ret;
         node.expr_ret.retType = node.expr.expr_ret.retType;
         node.isAssignable = node.expr.isAssignable;
+        node.catagory = node.expr.catagory;
     }
 
     @Override
@@ -465,6 +484,7 @@ public class SemanicChecker implements ASTVisitor {
         node.expr_ret = node.lhs.expr_ret;
         node.expr_ret.retType = node.lhs.expr_ret.retType;
         node.isAssignable = false;
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
@@ -472,6 +492,7 @@ public class SemanicChecker implements ASTVisitor {
         if (now_class == null)throw new SemanticError("This only in classdef" , node.pos);
         node.expr_ret = new ClassTypeNode(now_class , node.pos);
         node.isAssignable = false;
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
@@ -482,26 +503,31 @@ public class SemanicChecker implements ASTVisitor {
     @Override
     public void visit(IdValNode node) {
         //
+        node.catagory = ExprNode.Catagory.LVALUE;
     }
 
     @Override
     public void visit(IntValNode node) {
         //
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
     public void visit(StringValNode node) {
         //
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
     public void visit(BoolValNode node) {
         //
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
     public void visit(NullValNode node) {
         //
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
@@ -527,11 +553,13 @@ public class SemanicChecker implements ASTVisitor {
         if (node.returnTypeNode == null)throw new SemanticError("Lambda no ret" , node.pos);
         func_stack.pop();
         currentScope = currentScope.parentScope;
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
     public void visit(ThisValNode node) {
         //
+        node.catagory = ExprNode.Catagory.RVALUE;
     }
 
     @Override
@@ -547,6 +575,7 @@ public class SemanicChecker implements ASTVisitor {
     @Override
     public void visit(ExprListNode node) {
         //
+        node.exprs.forEach(cd -> cd.accept(this));
     }
 
     @Override

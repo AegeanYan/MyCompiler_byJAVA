@@ -1,14 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="Ir commit" />
+    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="Ir commit">
+      <change afterPath="$PROJECT_DIR$/src/Backend/AsmBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Backend/AsmPrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Backend/IRInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Frontend/IRPrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Frontend/IRVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/BasicClass/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/BasicClass/Value.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/IRBasicBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/IRFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/IRModule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Alloc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Binary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Bitcast.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Branch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Call.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Gep.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/IRInstr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Icmp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Jump.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Load.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Phi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Ret.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Sext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Store.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Zext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/LLVMScope.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Operand/BoolConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Operand/IRConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Operand/IntConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Operand/NullConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Operand/StringConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Operand/VirtualReg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/ArrayType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/BoolType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/FuncType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/IRType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/IntegerType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/LabelType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/PointerType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/StructType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LLVMIR/Type/VoidType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/Branch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/Call.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/ImmBinary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/Jump.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/Load.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/LoadAddr.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/LoadImm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/Move.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/RISCVInst.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/RegBinary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/Return.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/StepWidth.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/Store.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Inst/Unary.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Operand/Imm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/Operand/PhysicalReg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/asmBlock.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/asmFunction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/asmVisitor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RISCV/asmmodule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Util/IRError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/MyCompiler_byJAVA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/MyCompiler_byJAVA.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/ASTNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ASTNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/ArrayTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ArrayTypeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/ClassTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ClassTypeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/ConstantNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ConstantNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/ExprListNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ExprListNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/ExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ExprNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/FuncDefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/FuncDefNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/FuncValNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/FuncValNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/IdValNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/IdValNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/LambdaValNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/LambdaValNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/NewNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/NewNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/ReturnTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ReturnTypeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/ThisValNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ThisValNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/VarDefNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/VarDefNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AST/VoidTypeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/VoidTypeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Frontend/BuiltInitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/BuiltInitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Frontend/SemanicChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/SemanicChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/Scope.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/globalScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/globalScope.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1z2D3A6zxNs1YZ52gGVixV4HzB4" />
   <component name="ProjectViewState">
@@ -21,14 +122,29 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="MyCompiler_byJAVA" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -58,6 +174,23 @@
       <workItem from="1635781977632" duration="152000" />
       <workItem from="1638171339999" duration="83000" />
       <workItem from="1638199415850" duration="168000" />
+      <workItem from="1638199716639" duration="379000" />
+      <workItem from="1642049146171" duration="1277000" />
+      <workItem from="1642050559031" duration="1024000" />
+      <workItem from="1642051612596" duration="2514000" />
+      <workItem from="1642068065406" duration="764000" />
+      <workItem from="1642072281346" duration="110000" />
+      <workItem from="1642074591613" duration="78000" />
+      <workItem from="1642075365570" duration="1402000" />
+      <workItem from="1642233898838" duration="19039000" />
+      <workItem from="1642405715104" duration="14364000" />
+      <workItem from="1642489543709" duration="20545000" />
+      <workItem from="1642604380583" duration="65000" />
+      <workItem from="1642838849217" duration="37348000" />
+      <workItem from="1643008360765" duration="8697000" />
+      <workItem from="1643022449512" duration="14151000" />
+      <workItem from="1643079515140" duration="11423000" />
+      <workItem from="1643124839327" duration="87927000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -122,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638199503787</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Ir commit">
+      <created>1638199792830</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1638199792830</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,5 +286,31 @@
     <MESSAGE value="11.1啊对对对" />
     <MESSAGE value="Ir commit" />
     <option name="LAST_COMMIT_MESSAGE" value="Ir commit" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Backend/AsmBuilder.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/Frontend/IRBuilder.java</url>
+          <line>781</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="LLVMIR.Type.IntegerType" memberName="width" />
+      </pinned-members>
+    </pin-to-top-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="addrMap.get(v.numLabel)" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

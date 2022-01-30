@@ -14,7 +14,6 @@ public class ArrayTypeNode extends VarTypeNode{
         else {
             varType = _varType;
             dims = 1;
-
         }
         this.id = varType.id;
         this.retType = this.id;
