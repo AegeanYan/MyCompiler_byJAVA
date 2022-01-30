@@ -184,7 +184,7 @@ public class AsmBuilder implements IRInterface{
             IRType refType = ((PointerType)node.indexSrc.type).dePointed();
             if (refType instanceof IntegerType && ((IntegerType) refType).width == 8)gepOffset = value;
             curBlock.append(new LoadImm(reg1 , gepOffset));
-            curBlock.append(new RegBinary(RegBinary.Op.add , reg1 ,baseAddr , reg1));
+            curBlock.append(new RegBinary(RegBinary.Op.add , result ,baseAddr , reg1));
         }else {
             getReg(reg1, offset);
             curBlock.append(new ImmBinary(ImmBinary.Op.slli, reg2, reg1, 2L));

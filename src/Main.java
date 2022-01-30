@@ -26,10 +26,10 @@ public class Main{
         String LLVMoutputfile = "llvm.ll";
         PrintStream asmOutput = new PrintStream(asmOutputfile);
         PrintStream llvmOutput = new PrintStream(LLVMoutputfile);
-        if (debug){
-            asmOutput = System.out;
-            llvmOutput = System.out;
-        }
+//        if (debug){
+//            asmOutput = System.out;
+//            llvmOutput = System.out;
+//        }
         boolean Semantic = false;
         for (String str : args){
             if (str.equals("-fsyntax-only")){
