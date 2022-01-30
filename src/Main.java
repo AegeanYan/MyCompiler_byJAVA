@@ -25,13 +25,13 @@ public class Main{
         String LLVMoutputfile = "llvm.ll";
         PrintStream asmOutput = new PrintStream(asmOutputfile);
         PrintStream llvmOutput = new PrintStream(LLVMoutputfile);
-        boolean Semantic = true;
-//        for (String str : args){
-//            if (str.equals("-fsyntax-only")){
-//                Semantic = true;
-//                break;
-//            }
-//        }
+        boolean Semantic = false;
+        for (String str : args){
+            if (str.equals("-fsyntax-only")){
+                Semantic = true;
+                break;
+            }
+        }
         try{
             Mx_liteLexer lexer = new Mx_liteLexer(CharStreams.fromStream(input));
             lexer.removeErrorListeners();
