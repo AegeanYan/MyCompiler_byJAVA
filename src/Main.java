@@ -19,12 +19,17 @@ import Backend.*;
 public class Main{
     public static void main(String[] args) throws Exception {
         InputStream input = System.in;
-        //String name = "test.yx";
-        //InputStream input = new FileInputStream(name);
+        boolean debug = false;
+        String name = "test.yx";
+        if (debug)input = new FileInputStream(name);
         String asmOutputfile = "output.s";
         String LLVMoutputfile = "llvm.ll";
         PrintStream asmOutput = new PrintStream(asmOutputfile);
         PrintStream llvmOutput = new PrintStream(LLVMoutputfile);
+        if (debug){
+            asmOutput = System.out;
+            llvmOutput = System.out;
+        }
         boolean Semantic = false;
         for (String str : args){
             if (str.equals("-fsyntax-only")){

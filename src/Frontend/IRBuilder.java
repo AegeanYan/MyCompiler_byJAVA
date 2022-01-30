@@ -156,7 +156,7 @@ public class IRBuilder implements ASTVisitor {
             curFunc = targetModule.getCustomFunc(name);
             curBlock = curFunc.getEntry();
             if (curClass != null)cscope.classon = targetModule.getClass(curClass.name);
-
+            if (node.name.equals("main"))curBlock.addInstr(new Call(null , targetModule.getCustomFunc("global_var_def") , null));
             VirtualReg argReg;
             int index = 0;
             if (curClass != null){

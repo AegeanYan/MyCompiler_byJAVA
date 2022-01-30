@@ -19,11 +19,23 @@ public class IRPrinter implements IRVisitor{
     }
     @Override
     public void visit(IRModule node){
-        stream.println("@llvm.global_ctors = appending global [1 x { i32, void ()*, i8* }] [{ i32, void ()*, i8* } { i32 65535, void ()* @global_var_init, i8* null }]");
+        //stream.println("@llvm.global_ctors = appending global [1 x { i32, void ()*, i8* }] [{ i32, void ()*, i8* } { i32 65535, void ()* @global_var_init, i8* null }]");
+        for (String name : node.builtInFunctionName){
+            IRFunction func = node.getBuiltinFunc(name);
+            stream.print("declare dso_local " + func.type.toString() + " @" + name);
+            stream.print('(');
+            for (int i = 0;i < func.args.size();++i){
+                stream.print(func.args.get(i).type.toString());
+                if (i != func.args.size()-1)stream.print(", ");
+            }
+            stream.println(')');
+        }
+        stream.println();
         for (String statname : node.staticDataName){
             IRType irType = node.staticData.get(statname);
             stream.println("@"+statname+" = dso_local global "+irType.toString()+" "+ irType.getZeroInit().getName());
         }
+
         for (Pair<String , VirtualReg> pair : node.strConstants){
             String strValue = pair.a;
             VirtualReg strConstReg = pair.b;
@@ -41,16 +53,7 @@ public class IRPrinter implements IRVisitor{
             node.customFunctions.get(name).accept(this);
             stream.print('\n');
         }
-        for (String name : node.builtInFunctionName){
-            IRFunction func = node.getBuiltinFunc(name);
-            stream.print("declare dso_local " + func.type.toString() + " @" + name);
-            stream.print('(');
-            for (int i = 0;i < func.args.size();++i){
-                stream.print(func.args.get(i).type.toString());
-                if (i != func.args.size()-1)stream.print(", ");
-            }
-            stream.println(')');
-        }
+
     }
 
     @Override
