@@ -18,9 +18,9 @@ import RISCV.*;
 import Backend.*;
 public class Main{
     public static void main(String[] args) throws Exception {
-        //InputStream input = System.in;
-        String name = "test.yx";
-        InputStream input = new FileInputStream(name);
+        InputStream input = System.in;
+        //String name = "test.yx";
+        //InputStream input = new FileInputStream(name);
         String asmOutputfile = "output.s";
         PrintStream asmOutput = new PrintStream(asmOutputfile);
         boolean Semantic = false;
