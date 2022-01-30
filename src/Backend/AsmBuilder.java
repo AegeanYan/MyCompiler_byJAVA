@@ -245,6 +245,7 @@ public class AsmBuilder implements IRInterface{
         PhysicalReg addr = getSavesReg();
         if (node.addr.name != null){
             curBlock.append(new LoadAddr(addr , node.addr.name));
+            curBlock.append(new RISCV.Inst.Load(StepWidth.word , result , addr , 0L));
         }else if (!curfunc.cotainStackVar((VirtualReg) node.addr)){
             getReg(addr , node.addr);
             curBlock.append(new RISCV.Inst.Load(StepWidth.word , result , addr , 0L));
