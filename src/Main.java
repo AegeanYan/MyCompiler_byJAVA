@@ -22,14 +22,16 @@ public class Main{
         //String name = "test.yx";
         //InputStream input = new FileInputStream(name);
         String asmOutputfile = "output.s";
+        String LLVMoutputfile = "llvm.ll";
         PrintStream asmOutput = new PrintStream(asmOutputfile);
-        boolean Semantic = false;
-        for (String str : args){
-            if (str.equals("-fsyntax-only")){
-                Semantic = true;
-                break;
-            }
-        }
+        PrintStream llvmOutput = new PrintStream(LLVMoutputfile);
+        boolean Semantic = true;
+//        for (String str : args){
+//            if (str.equals("-fsyntax-only")){
+//                Semantic = true;
+//                break;
+//            }
+//        }
         try{
             Mx_liteLexer lexer = new Mx_liteLexer(CharStreams.fromStream(input));
             lexer.removeErrorListeners();
@@ -51,13 +53,14 @@ public class Main{
             preProcessor.visit(rt);
             SemanicChecker semanicChecker = new SemanicChecker(gscope);
             semanicChecker.visit(rt);
+
             if (Semantic)return;
 
             IRBuilder irBuilder = new IRBuilder();
             rt.accept(irBuilder);
             IRModule module = irBuilder.targetModule;
-//            IRPrinter printer = new IRPrinter(System.out);
-//            printer.visit(module);
+            IRPrinter printer = new IRPrinter(llvmOutput);
+            printer.visit(module);
 
             AsmBuilder asmBuilder = new AsmBuilder();
             module.accept(asmBuilder);
