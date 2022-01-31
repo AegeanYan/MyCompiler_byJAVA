@@ -7,7 +7,7 @@ public class BoolType extends IRType{
 
     @Override
     public int byteSize() {
-        return 0;
+        return 4;
     }
 
     @Override

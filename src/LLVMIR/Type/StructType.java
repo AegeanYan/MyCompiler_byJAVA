@@ -19,7 +19,7 @@ public class StructType extends IRType{
         this.indexTable = new HashMap<>();
         this.idTable = new ArrayList<>();
         this.count = 0;
-        this.name = "class_" + name;
+        this.name = name;
     }
     public StructType addMember(String identifier , IRType type){
         if (!idTable.contains(identifier)){
@@ -40,7 +40,10 @@ public class StructType extends IRType{
     @Override
     public int byteSize() {
         int sum = 0;
-        for (IRType type : typeTable.values()) sum += type.byteSize();
+        for (IRType type : typeTable.values()){
+            if(type instanceof BoolType)sum += 1;
+            else sum += type.byteSize();
+        }
         return sum;
     }
 

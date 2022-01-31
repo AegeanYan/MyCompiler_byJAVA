@@ -242,7 +242,8 @@ public class ASTBuilder extends Mx_liteBaseVisitor<ASTNode> {
 
     @Override
     public ASTNode visitThisExpr(Mx_liteParser.ThisExprContext ctx) {
-        return new ThisExprNode(((ThisValNode) visit(ctx.This())) , new position(ctx));
+        ThisExprNode ss =  new ThisExprNode(((ThisValNode) visit(ctx.This())) , new position(ctx));
+        return ss;
     }
 
     @Override

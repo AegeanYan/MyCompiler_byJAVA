@@ -8,7 +8,7 @@ public class ThisExprNode extends ExprNode{
     public ThisValNode thi;
     public ThisExprNode(ThisValNode _thi, position pos){
         super(pos);
-        thi = _thi;
+        thi = new ThisValNode(new position(-1 , -1));
     }
     @Override
     public void accept(ASTVisitor visitor){

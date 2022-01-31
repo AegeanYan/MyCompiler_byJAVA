@@ -34,17 +34,17 @@ public class LLVMScope {
         return this.parent;
     }
 
-    public VirtualReg getVarReg(String name , boolean lookUpon){
-        if (regTable.containsKey(name))return regTable.get(name);
-        else if (lookUpon && parent != null) return parent.getVarReg(name , true);
-        else return null;
-    }
+//    public VirtualReg getVarReg(String name , boolean lookUpon){
+//        if (regTable.containsKey(name))return regTable.get(name);
+//        else if (lookUpon && parent != null) return parent.getVarReg(name , true);
+//        else return null;
+//    }
 
     public VirtualReg getVarReg(String name , boolean lookUpon , IRBasicBlock curBlock , IRFunction curFunc){
         if (classon != null){
             if (classon.idTable.contains(name)){
                 VirtualReg thisReg = new VirtualReg(new PointerType(new StructType(classon.name)) , curFunc.takeLabel());
-                VirtualReg thisStoreReg = getVarReg("this" , true);
+                VirtualReg thisStoreReg = getVarReg("this" , true , curBlock , curFunc);
                 curBlock.addInstr(new Load(thisReg , thisStoreReg));
                 VirtualReg ptrReg = new VirtualReg(new PointerType(classon.getBaseType(name)) , curFunc.takeLabel());
                 ArrayList<IRConstant> offset = new ArrayList<>();
@@ -52,7 +52,9 @@ public class LLVMScope {
                 offset.add(new IntConstant(classon.getIndex(name)));
                 curBlock.addInstr(new Gep(ptrReg , thisReg , offset));
                 return ptrReg;
-            }else if (lookUpon && parent != null)return parent.getVarReg(name , true , curBlock , curFunc);
+            }
+            else if (regTable.containsKey(name))return regTable.get(name);
+            else if (lookUpon && parent != null)return parent.getVarReg(name , true , curBlock , curFunc);
             else return null;
         }else {
             if (regTable.containsKey(name))return regTable.get(name);

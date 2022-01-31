@@ -23,7 +23,7 @@ public class IRModule {
         IRFunction function;
         builtInFunctionName.add("malloc");
         function = new IRFunction("malloc" , new PointerType(new IntegerType(8)));
-        function.addParameter(new IntegerType(64));
+        function.addParameter(new IntegerType(32));
         builtInFunctions.put("malloc" , function);
 
         builtInFunctionName.add("string_add");
