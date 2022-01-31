@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="last?">
+    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="我要过除夕！">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
@@ -110,7 +110,7 @@
       <workItem from="1643079515140" duration="11423000" />
       <workItem from="1643124839327" duration="92096000" />
       <workItem from="1643547606090" duration="2085000" />
-      <workItem from="1643550187868" duration="22256000" />
+      <workItem from="1643550187868" duration="23902000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -287,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643624219005</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="我要过除夕！">
+      <created>1643625454521</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1643625454521</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -322,7 +329,8 @@
     <MESSAGE value="改了debug（汗" />
     <MESSAGE value="debugging" />
     <MESSAGE value="last?" />
-    <option name="LAST_COMMIT_MESSAGE" value="last?" />
+    <MESSAGE value="我要过除夕！" />
+    <option name="LAST_COMMIT_MESSAGE" value="我要过除夕！" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -331,6 +339,16 @@
           <url>file://$PROJECT_DIR$/src/Backend/AsmBuilder.java</url>
           <line>131</line>
           <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/LLVMIR/Type/PointerType.java</url>
+          <line>20</line>
+          <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/LLVMIR/Type/PointerType.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.RuntimeException" package="java.lang" />

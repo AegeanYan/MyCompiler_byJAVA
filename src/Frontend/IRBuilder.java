@@ -11,6 +11,7 @@ import LLVMIR.Operand.*;
 import LLVMIR.Type.*;
 import Util.IRError;
 import Util.globalScope;
+import org.antlr.v4.codegen.model.decl.Decl;
 import org.antlr.v4.runtime.misc.Pair;
 
 import java.util.ArrayList;
@@ -55,22 +56,14 @@ public class IRBuilder implements ASTVisitor {
     public void visit(RootNode node) {
         cscope = new LLVMScope(null);
         preCheck = true;
-        for (DeclrNode cd : node.declrs){
-            if (cd instanceof FuncDefNode) cd.accept(this);
-        }
-        for (DeclrNode cd : node.declrs){
-            if (cd instanceof ClassDeclNode){
-                curClass = new StructType(((ClassDeclNode) cd).name);
-                for (DeclrNode declr : ((ClassDeclNode) cd).declrs){
-                    if (declr instanceof FuncDefNode && ((FuncDefNode) declr).retnode != null) declr.accept(this);
-                }
-                curClass = null;
+        for (DeclrNode declr : node.declrs){
+            if (declr instanceof  ClassDeclNode){
+                targetModule.addCustomClass(((ClassDeclNode) declr).name);
             }
         }
         for (DeclrNode declr : node.declrs){
             if (declr instanceof ClassDeclNode){
                 FuncDefNode constr = null;
-                targetModule.addCustomClass(((ClassDeclNode) declr).name);
                 curClass = new StructType(((ClassDeclNode)declr).name);
                 curFunc = new IRFunction(curClass.name  + "." + curClass.name, new VoidType());
                 curFunc.addParameter(new PointerType(new StructType(curClass.name)));//
@@ -100,6 +93,19 @@ public class IRBuilder implements ASTVisitor {
                 curClass = null;
             }
         }
+        for (DeclrNode cd : node.declrs){
+            if (cd instanceof FuncDefNode) cd.accept(this);
+        }
+        for (DeclrNode cd : node.declrs){
+            if (cd instanceof ClassDeclNode){
+                curClass = new StructType(((ClassDeclNode) cd).name);
+                for (DeclrNode declr : ((ClassDeclNode) cd).declrs){
+                    if (declr instanceof FuncDefNode && ((FuncDefNode) declr).retnode != null) declr.accept(this);
+                }
+                curClass = null;
+            }
+        }
+
 
         IRFunction globalVarDef = new IRFunction("global_var_def" , new VoidType());
         curFunc = globalVarDef;
@@ -173,6 +179,7 @@ public class IRBuilder implements ASTVisitor {
             }
             for (;index < curFunc.args.size();index++){
                 argReg = new VirtualReg(new PointerType(curFunc.args.get(index).type) , curFunc.takeLabel());
+                assert curFunc.args.get(index).type != null;
                 curBlock.addInstr(new Alloc(argReg));
                 curBlock.addInstr(new Store(curFunc.args.get(index) , argReg));
                 if (curClass != null)cscope.addvar_to_table(node.paralist.get(index-1).id , argReg);
@@ -216,6 +223,7 @@ public class IRBuilder implements ASTVisitor {
                     thisReg = new VirtualReg(new PointerType(new StructType(curClass.name)) , curFunc.takeLabel());
 
                     ptrReg = new VirtualReg(new PointerType(node.type.baseType) , curFunc.takeLabel());
+                    assert node.type.baseType != null;
                     curBlock.addInstr(new Load(thisReg , thisStoreReg));
                     assert thisStoreReg != null;
                     ArrayList<IRConstant> offsets = new ArrayList<>();
@@ -226,6 +234,7 @@ public class IRBuilder implements ASTVisitor {
                 }
             } else {
                 defReg = new VirtualReg(new PointerType(node.type.baseType), node.id);
+                assert node.type.baseType != null;
                 if (node.init != null){
                     curBlock.addInstr(new Store(load , defReg));
                     cscope.addvar_to_table(node.id , defReg);
@@ -256,12 +265,14 @@ public class IRBuilder implements ASTVisitor {
                 }else assignVal = node.init.value;
 
                 allocReg = new VirtualReg(new PointerType(node.type.baseType) , curFunc.takeLabel());
+                assert node.type.baseType != null;
                 cscope.addvar_to_table(node.id , allocReg);
                 curBlock.addInstr(new Alloc(allocReg));
                 curBlock.addInstr(new Store(assignVal , allocReg));
             }else {
                 node.type.accept(this);
                 VirtualReg allocReg = new VirtualReg(new PointerType(node.type.baseType) , curFunc.takeLabel());
+                assert node.type.baseType != null;
                 cscope.addvar_to_table(node.id , allocReg);
                 curBlock.addInstr(new Alloc(allocReg));
             }
@@ -282,6 +293,7 @@ public class IRBuilder implements ASTVisitor {
     public void visit(ArrayTypeNode node) {
         node.varType.accept(this);
         node.baseType = new PointerType(node.varType.baseType , node.dims);
+        assert node.varType.baseType != null;
     }
 
     @Override
@@ -895,6 +907,7 @@ public class IRBuilder implements ASTVisitor {
             ReturnTypeNode obType = node.object.expr_ret;
             assert obType instanceof ClassTypeNode;
             IRType memType = targetModule.getClassMemberType(((ClassTypeNode) obType).name , node.member.name);
+            assert memType != null;
             VirtualReg ptrReg = new VirtualReg(new PointerType(memType) , curFunc.takeLabel());
             ArrayList<IRConstant> offsets = new ArrayList<>();
             offsets.add(new IntConstant(0));
@@ -972,8 +985,15 @@ public class IRBuilder implements ASTVisitor {
             if (node.types instanceof IntTypeNode)bottomType = new IntegerType(32);
             else if (node.types instanceof BoolTypeNode)bottomType = new BoolType();
             else if (node.types instanceof StringTypeNode)bottomType = new PointerType(new IntegerType(8));
-            else if (node.types instanceof ClassTypeNode)bottomType = new PointerType(targetModule.getClass(((ClassTypeNode) node.types).name));
-            if (node.sizof.size() != node.dims)bottomType = new PointerType(bottomType , node.dims - node.sizof.size());
+            else if (node.types instanceof ClassTypeNode){
+                assert targetModule.getClass(((ClassTypeNode) node.types).name) != null;
+                bottomType = new PointerType(targetModule.getClass(((ClassTypeNode) node.types).name));
+
+            }
+            if (node.sizof.size() != node.dims){
+                assert bottomType != null;
+                bottomType = new PointerType(bottomType , node.dims - node.sizof.size());
+            }
             for (int i = 0; i < node.sizof.size(); ++i){
                 node.sizof.get(i).accept(this);
                 if (node.sizof.get(i).isLvalue() || node.sizof.get(i).isAssignable){
@@ -983,6 +1003,7 @@ public class IRBuilder implements ASTVisitor {
                 sizes.add(indexValue);
             }
             thisReg = multiAllocate(node , bottomType , sizes ,0);
+            assert thisReg.type != null;
             thisStoreReg = new VirtualReg(new PointerType(thisReg.type) , curFunc.takeLabel());
             curBlock.addInstr(new Alloc(thisStoreReg));
             curBlock.addInstr(new Store(thisReg , thisStoreReg));
