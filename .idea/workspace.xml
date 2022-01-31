@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="debugging">
+    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="修改了内建函数名">
+      <change afterPath="$PROJECT_DIR$/builtin.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLVMIR/IRModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/IRModule.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +110,7 @@
       <workItem from="1643079515140" duration="11423000" />
       <workItem from="1643124839327" duration="92096000" />
       <workItem from="1643547606090" duration="2085000" />
-      <workItem from="1643550187868" duration="4287000" />
+      <workItem from="1643550187868" duration="5323000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -246,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643554501042</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="修改了内建函数名">
+      <created>1643556117077</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1643556117077</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,7 +283,8 @@
     <MESSAGE value="试一下" />
     <MESSAGE value="try" />
     <MESSAGE value="debugging" />
-    <option name="LAST_COMMIT_MESSAGE" value="debugging" />
+    <MESSAGE value="修改了内建函数名" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改了内建函数名" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -287,6 +294,10 @@
           <line>131</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="12" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
