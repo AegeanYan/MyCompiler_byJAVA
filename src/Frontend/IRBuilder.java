@@ -411,12 +411,13 @@ public class IRBuilder implements ASTVisitor {
 
     @Override
     public void visit(ForStmtNode node) {
-        loopBreak.add(new ArrayList<>());
-        loopContinue.add(new ArrayList<>());
+        loopBreak.push(new ArrayList<>());
+        loopContinue.push(new ArrayList<>());
         cscope = new LLVMScope(cscope);
         IRBasicBlock condHeadBlock , condTailBlock , exeHeadBlock , exeTailBlock , increHeadBlock , increTailBlock , exitBlock;
         IRConstant condValue = null;
         VirtualReg resultReg = null;
+
         if (node.init != null)node.init.accept(this);
         condHeadBlock = new IRBasicBlock(curFunc , curFunc.takeLabel());
         curBlock.addInstr(new Jump(condHeadBlock));
@@ -468,8 +469,8 @@ public class IRBuilder implements ASTVisitor {
             breakBlock.terminator = new Jump(exitBlock);
         }
         for (IRBasicBlock contiBlock : contiBlocks){
-            contiBlock.addInstr(new Jump(condHeadBlock));
-            contiBlock.terminator = new Jump(condHeadBlock);
+            contiBlock.addInstr(new Jump(increHeadBlock));
+            contiBlock.terminator = new Jump(increHeadBlock);
         }
         curBlock = exitBlock;
         cscope = cscope.to_parent();
