@@ -83,7 +83,7 @@ public class IRBuilder implements ASTVisitor {
                 FuncDefNode constr = null;
                 targetModule.addCustomClass(((ClassDeclNode) declr).name);
                 curClass = new StructType(((ClassDeclNode)declr).name);
-                curFunc = new IRFunction(curClass.name, new VoidType());
+                curFunc = new IRFunction(curClass.name  + "." + curClass.name, new VoidType());
                 curFunc.addParameter(new PointerType(new StructType(curClass.name)));//
                 curBlock = curFunc.getEntry();
                 cscope = new LLVMScope(cscope);
@@ -137,6 +137,7 @@ public class IRBuilder implements ASTVisitor {
     @Override
     public void visit(FuncDefNode node) {
         String name = curClass != null ? curClass.name + "." + node.name : node.name;
+        //String name = node.name;
         if (preCheck){
             if(node.retnode == null){
                 node.suite.accept(this);
@@ -151,12 +152,14 @@ public class IRBuilder implements ASTVisitor {
                 targetModule.addCustomFunc(curFunc);
                 curFunc = null;//给函数占位
             }
-        }else {
+        }else if (node.retnode != null){
             cscope = new LLVMScope(cscope);
             curFunc = targetModule.getCustomFunc(name);
+            assert curFunc != null;
             curBlock = curFunc.getEntry();
             if (curClass != null)cscope.classon = targetModule.getClass(curClass.name);
             if (node.name.equals("main"))curBlock.addInstr(new Call(null , targetModule.getCustomFunc("global_var_def") , null));
+
             VirtualReg argReg;
             int index = 0;
             if (curClass != null){
@@ -904,7 +907,7 @@ public class IRBuilder implements ASTVisitor {
                 node.exprlist.accept(this);
                 funcArgs = new ArrayList<>(node.exprlist.cons);
             } else funcArgs = new ArrayList<>();
-            if (node.object.expr_ret instanceof ClassTypeNode){
+            if (node.object.expr_ret instanceof ClassTypeNode && !((ClassTypeNode) node.object.expr_ret).name.equals("int") && !((ClassTypeNode) node.object.expr_ret).name.equals("bool") && !((ClassTypeNode) node.object.expr_ret).name.equals("string")){
                 funcArgs.add(0 , thisReg);
                 String className = ((ClassTypeNode) node.object.expr_ret).name;
                 func = targetModule.getCustomFunc(className + "." + node.member.name);
@@ -925,6 +928,7 @@ public class IRBuilder implements ASTVisitor {
                 }
             }
             resultReg = null;
+            assert func != null;
             if (!(func.type instanceof VoidType))resultReg = new VirtualReg(func.type, curFunc.takeLabel());
             curBlock.addInstr(new Call(resultReg , func , funcArgs));
             node.addr = null;
@@ -987,7 +991,7 @@ public class IRBuilder implements ASTVisitor {
             ArrayList<IRConstant> mallocArgs = new ArrayList<>();
             ArrayList<IRConstant> constrArgs = new ArrayList<>();
             assert node.types instanceof ClassTypeNode;
-            constr = targetModule.getFunc(((ClassTypeNode) node.types).name);
+            constr = targetModule.getFunc(((ClassTypeNode) node.types).name + "." + ((ClassTypeNode) node.types).name);
             thisStoreReg = new VirtualReg(new PointerType(new StructType(((ClassTypeNode) node.types).name) , 2) , curFunc.takeLabel());
             curBlock.addInstr(new Alloc(thisStoreReg));
             mallocReg = new VirtualReg(new PointerType(new IntegerType(8)) , curFunc.takeLabel());

@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="改了debug（汗">
+    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="debugging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AST/ThisExprNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AST/ThisExprNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Frontend/ASTBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/ASTBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLVMIR/IRModule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/IRModule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLVMIR/Instr/Ret.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/Instr/Ret.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLVMIR/LLVMScope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/LLVMScope.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLVMIR/Type/BoolType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/Type/BoolType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLVMIR/Type/IntegerType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/Type/IntegerType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLVMIR/Type/StructType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/Type/StructType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LLVMIR/Operand/BoolConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/Operand/BoolConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,7 +111,7 @@
       <workItem from="1643079515140" duration="11423000" />
       <workItem from="1643124839327" duration="92096000" />
       <workItem from="1643547606090" duration="2085000" />
-      <workItem from="1643550187868" duration="15066000" />
+      <workItem from="1643550187868" duration="17841000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -274,7 +267,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643594098089</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="debugging">
+      <created>1643614128694</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1643614128694</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,11 +304,11 @@
     <MESSAGE value="改了回来" />
     <MESSAGE value="试一下" />
     <MESSAGE value="try" />
-    <MESSAGE value="debugging" />
     <MESSAGE value="修改了内建函数名" />
     <MESSAGE value="添加了内建函数" />
     <MESSAGE value="改了debug（汗" />
-    <option name="LAST_COMMIT_MESSAGE" value="改了debug（汗" />
+    <MESSAGE value="debugging" />
+    <option name="LAST_COMMIT_MESSAGE" value="debugging" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

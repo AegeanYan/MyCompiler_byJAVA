@@ -12,7 +12,7 @@ public class BoolConstant extends IRConstant{
 
     @Override
     public String getName(){
-        return value ? String.valueOf(1) : String.valueOf(0);
+        return value ? "true" : "false";
     }
     @Override
     public String toString(){
