@@ -4,7 +4,6 @@
     <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="debugging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/LLVMIR/Operand/BoolConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LLVMIR/Operand/BoolConstant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +110,7 @@
       <workItem from="1643079515140" duration="11423000" />
       <workItem from="1643124839327" duration="92096000" />
       <workItem from="1643547606090" duration="2085000" />
-      <workItem from="1643550187868" duration="17841000" />
+      <workItem from="1643550187868" duration="21311000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -274,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643614128694</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="debugging">
+      <created>1643617700134</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1643617700134</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

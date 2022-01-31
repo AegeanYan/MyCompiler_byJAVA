@@ -67,17 +67,6 @@ public class IRBuilder implements ASTVisitor {
                 curClass = null;
             }
         }
-        IRFunction globalVarDef = new IRFunction("global_var_def" , new VoidType());
-        curFunc = globalVarDef;
-        curBlock = curFunc.getEntry();
-        for (DeclrNode declr : node.declrs){
-            if (declr instanceof DeclStmtNode)declr.accept(this);
-        }
-        curBlock.addInstr(new Ret(null));
-        targetModule.addCustomFunc(curFunc);
-        curBlock = null;
-        curFunc = null;
-
         for (DeclrNode declr : node.declrs){
             if (declr instanceof ClassDeclNode){
                 FuncDefNode constr = null;
@@ -111,6 +100,19 @@ public class IRBuilder implements ASTVisitor {
                 curClass = null;
             }
         }
+
+        IRFunction globalVarDef = new IRFunction("global_var_def" , new VoidType());
+        curFunc = globalVarDef;
+        curBlock = curFunc.getEntry();
+        for (DeclrNode declr : node.declrs){
+            if (declr instanceof DeclStmtNode)declr.accept(this);
+        }
+        curBlock.addInstr(new Ret(null));
+        targetModule.addCustomFunc(curFunc);
+        curBlock = null;
+        curFunc = null;
+
+
         preCheck = false;
         for (DeclrNode declr : node.declrs)declr.accept(this);
         //cscope = cscope.to_parent();
@@ -969,7 +971,7 @@ public class IRBuilder implements ASTVisitor {
             if (node.types instanceof IntTypeNode)bottomType = new IntegerType(32);
             else if (node.types instanceof BoolTypeNode)bottomType = new BoolType();
             else if (node.types instanceof StringTypeNode)bottomType = new PointerType(new IntegerType(8));
-            else if (node.types instanceof ClassTypeNode)bottomType = targetModule.getClass(((ClassTypeNode) node.types).name);
+            else if (node.types instanceof ClassTypeNode)bottomType = new PointerType(targetModule.getClass(((ClassTypeNode) node.types).name));
             if (node.sizof.size() != node.dims)bottomType = new PointerType(bottomType , node.dims - node.sizof.size());
             for (int i = 0; i < node.sizof.size(); ++i){
                 node.sizof.get(i).accept(this);
