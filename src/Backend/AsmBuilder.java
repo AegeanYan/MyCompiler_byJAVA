@@ -149,19 +149,20 @@ public class AsmBuilder implements IRInterface{
             if (i < 8){
                 reg = rege(aRegs[i]);
                 getReg(reg , parameter);
-            }else {
-                PhysicalReg offsetReg = get_tmp_sReg();
-                PhysicalReg addrReg = get_tmp_sReg();
-                spiltOffset = (node.in_args.size() - 1 - i) * 4L;
-                reg = get_tmp_sReg();
-                getReg(reg , parameter);
-                curBlock.append(new LoadImm(offsetReg , spiltOffset));
-                curBlock.append(new RegBinary(RegBinary.Op.add , addrReg , rege("sp") , offsetReg));
-                curBlock.append(new RISCV.Inst.Store(StepWidth.word , reg , addrReg , 0L));
-                reg.free();
-                offsetReg.free();
-                addrReg.free();
             }
+//            else {
+//                PhysicalReg offsetReg = get_tmp_sReg();
+//                PhysicalReg addrReg = get_tmp_sReg();
+//                spiltOffset = (node.in_args.size() - 1 - i) * 4L;
+//                reg = get_tmp_sReg();
+//                getReg(reg , parameter);
+//                curBlock.append(new LoadImm(offsetReg , spiltOffset));
+//                curBlock.append(new RegBinary(RegBinary.Op.add , addrReg , rege("sp") , offsetReg));
+//                curBlock.append(new RISCV.Inst.Store(StepWidth.word , reg , addrReg , 0L));
+//                reg.free();
+//                offsetReg.free();
+//                addrReg.free();
+//            }
 
         }
         curBlock.append(new RISCV.Inst.Call(node.func.name));
@@ -373,16 +374,15 @@ public class AsmBuilder implements IRInterface{
             if (i < 8){
                 tmp = rege(aRegs[i]);
                 saveRegs_v_p(tmp , arg);
-            }else {
-                tmp = get_tmp_sReg();
-                curBlock.append(new LoadImm(rege("t0") , spOffset + 4L * (i - 8)));
-                curBlock.append(new RegBinary(RegBinary.Op.add , rege("t1") , rege("sp") , rege("t0")));
-                curBlock.append(new RISCV.Inst.Load(StepWidth.word , tmp , rege("t1") , 0L));
-                saveRegs_v_p(tmp , arg);
-                tmp.free();
             }
-
-
+//            else {
+//                tmp = get_tmp_sReg();
+//                curBlock.append(new LoadImm(rege("t0") , spOffset + 4L * (i - 8)));
+//                curBlock.append(new RegBinary(RegBinary.Op.add , rege("t1") , rege("sp") , rege("t0")));
+//                curBlock.append(new RISCV.Inst.Load(StepWidth.word , tmp , rege("t1") , 0L));
+//                saveRegs_v_p(tmp , arg);
+//                tmp.free();
+//            }
         }
     }
 

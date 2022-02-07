@@ -1131,68 +1131,7 @@ public class IRBuilder implements ASTVisitor {
         }
     }
 
-    VirtualReg allocaNewArray(NewNode node, IRType bottomType, ArrayList<IRConstant> sizes, int depth) {
-        ArrayList<IRConstant> mallocArgs = new ArrayList<>();
-        IRConstant indexSize, byteSize, arraySize, mallocSize;
-        VirtualReg mallocReg, sizeReg, arrayReg, thisReg, iterStoreReg, iterReg, iterExtReg, iterLoadReg, iterPlusReg, condReg, indexPtrReg, elementReg;
-        IRBasicBlock rootBlock, condBlock, exeHeadBlock, exeTailBlock, increBlock, exitBlock;
-        IRType depthIRType = depth == node.sizof.size() - 1 ? bottomType : new PointerType(bottomType, node.sizof.size() - 1 - depth);
-        byteSize = new IntConstant(depthIRType.byteSize());
-        indexSize = sizes.get(depth);
-        if (indexSize instanceof IntConstant)
-            arraySize = new IntConstant(((IntConstant) byteSize).value * ((IntConstant) indexSize).value);
-        else {
-            arraySize = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
-            curBlock.addInstr(new Binary((VirtualReg) arraySize, Binary.BiOp.mul, indexSize, byteSize));
-        }
-        mallocSize = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
-        curBlock.addInstr(new Binary((VirtualReg) mallocSize, Binary.BiOp.add, arraySize, new IntConstant(4)));
-        mallocArgs.add(mallocSize);
-        mallocReg = new VirtualReg(new PointerType(new IntegerType(8)), curFunc.takeLabel());
-        curBlock.addInstr(new Call(mallocReg, targetModule.getFunc("malloc"), mallocArgs));
-        sizeReg = new VirtualReg(new PointerType(new IntegerType(32)), curFunc.takeLabel());
-        curBlock.addInstr(new Bitcast(mallocReg, sizeReg));
-        curBlock.addInstr(new Store(sizes.get(depth), sizeReg));
-        arrayReg = new VirtualReg(new PointerType(new IntegerType(8)), curFunc.takeLabel());
-        curBlock.addInstr(new Gep(arrayReg, mallocReg, new IntConstant(4)));
-        thisReg = new VirtualReg(new PointerType(depthIRType), curFunc.takeLabel());
-        curBlock.addInstr(new Bitcast(arrayReg, thisReg));
-        if (depth == node.sizof.size() - 1) return thisReg;
 
-        iterStoreReg = new VirtualReg(new PointerType(new IntegerType(32)), curFunc.takeLabel());
-        curBlock.addInstr(new Alloc(iterStoreReg));
-        curBlock.addInstr(new Store(new IntConstant(0), iterStoreReg));
-        rootBlock = curBlock;
-        condBlock = new IRBasicBlock(curFunc, curFunc.takeLabel());
-        curBlock = condBlock;
-        iterReg = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
-        curBlock.addInstr(new Load(iterReg, iterStoreReg));
-
-
-        condReg = new VirtualReg(new BoolType(), curFunc.takeLabel());
-        exeHeadBlock = new IRBasicBlock(curFunc, curFunc.takeLabel());
-        curBlock = exeHeadBlock;
-        elementReg = allocaNewArray(node, bottomType, sizes, depth + 1);
-        exeTailBlock = curBlock;
-        indexPtrReg = new VirtualReg(new PointerType(depthIRType), curFunc.takeLabel());
-        curBlock.addInstr(new Gep(indexPtrReg, thisReg, iterReg));
-        curBlock.addInstr(new Store(elementReg, indexPtrReg));
-        increBlock = new IRBasicBlock(curFunc, curFunc.takeLabel());
-        curBlock = increBlock;
-        iterLoadReg = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
-        curBlock.addInstr(new Load(iterLoadReg, iterStoreReg));
-        iterPlusReg = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
-        curBlock.addInstr(new Binary(iterPlusReg, Binary.BiOp.add, iterReg, new IntConstant(1)));
-        curBlock.addInstr(new Store(iterPlusReg, iterStoreReg));
-        exitBlock = new IRBasicBlock(curFunc, curFunc.takeLabel());
-        curBlock = exitBlock;
-        rootBlock.addInstr(new Jump(condBlock));
-        condBlock.addInstr(new Icmp(condReg, Icmp.CmpOp.slt, iterReg, indexSize));
-        condBlock.addInstr(new Branch(condReg, exeHeadBlock, exitBlock));
-        exeTailBlock.addInstr(new Jump(increBlock));
-        increBlock.addInstr(new Jump(condBlock));
-        return thisReg;
-    }
 
     @Override
     public void visit(SubExprNode node) {
@@ -1349,5 +1288,68 @@ public class IRBuilder implements ASTVisitor {
     @Override
     public void visit(CreatorNode creatorNode) {
 
+    }
+
+    VirtualReg allocaNewArray(NewNode node, IRType bottomType, ArrayList<IRConstant> sizes, int depth) {
+        ArrayList<IRConstant> mallocArgs = new ArrayList<>();
+        IRConstant indexSize, byteSize, arraySize, mallocSize;
+        VirtualReg mallocReg, sizeReg, arrayReg, thisReg, iterStoreReg, iterReg, iterExtReg, iterLoadReg, iterPlusReg, condReg, indexPtrReg, elementReg;
+        IRBasicBlock rootBlock, condBlock, exeHeadBlock, exeTailBlock, increBlock, exitBlock;
+        IRType depthIRType = depth == node.sizof.size() - 1 ? bottomType : new PointerType(bottomType, node.sizof.size() - 1 - depth);
+        byteSize = new IntConstant(depthIRType.byteSize());
+        indexSize = sizes.get(depth);
+        if (indexSize instanceof IntConstant)
+            arraySize = new IntConstant(((IntConstant) byteSize).value * ((IntConstant) indexSize).value);
+        else {
+            arraySize = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
+            curBlock.addInstr(new Binary((VirtualReg) arraySize, Binary.BiOp.mul, indexSize, byteSize));
+        }
+        mallocSize = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
+        curBlock.addInstr(new Binary((VirtualReg) mallocSize, Binary.BiOp.add, arraySize, new IntConstant(4)));
+        mallocArgs.add(mallocSize);
+        mallocReg = new VirtualReg(new PointerType(new IntegerType(8)), curFunc.takeLabel());
+        curBlock.addInstr(new Call(mallocReg, targetModule.getFunc("malloc"), mallocArgs));
+        sizeReg = new VirtualReg(new PointerType(new IntegerType(32)), curFunc.takeLabel());
+        curBlock.addInstr(new Bitcast(mallocReg, sizeReg));
+        curBlock.addInstr(new Store(sizes.get(depth), sizeReg));
+        arrayReg = new VirtualReg(new PointerType(new IntegerType(8)), curFunc.takeLabel());
+        curBlock.addInstr(new Gep(arrayReg, mallocReg, new IntConstant(4)));
+        thisReg = new VirtualReg(new PointerType(depthIRType), curFunc.takeLabel());
+        curBlock.addInstr(new Bitcast(arrayReg, thisReg));
+        if (depth == node.sizof.size() - 1) return thisReg;
+
+        iterStoreReg = new VirtualReg(new PointerType(new IntegerType(32)), curFunc.takeLabel());
+        curBlock.addInstr(new Alloc(iterStoreReg));
+        curBlock.addInstr(new Store(new IntConstant(0), iterStoreReg));
+        rootBlock = curBlock;
+        condBlock = new IRBasicBlock(curFunc, curFunc.takeLabel());
+        curBlock = condBlock;
+        iterReg = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
+        curBlock.addInstr(new Load(iterReg, iterStoreReg));
+
+
+        condReg = new VirtualReg(new BoolType(), curFunc.takeLabel());
+        exeHeadBlock = new IRBasicBlock(curFunc, curFunc.takeLabel());
+        curBlock = exeHeadBlock;
+        elementReg = allocaNewArray(node, bottomType, sizes, depth + 1);
+        exeTailBlock = curBlock;
+        indexPtrReg = new VirtualReg(new PointerType(depthIRType), curFunc.takeLabel());
+        curBlock.addInstr(new Gep(indexPtrReg, thisReg, iterReg));
+        curBlock.addInstr(new Store(elementReg, indexPtrReg));
+        increBlock = new IRBasicBlock(curFunc, curFunc.takeLabel());
+        curBlock = increBlock;
+        iterLoadReg = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
+        curBlock.addInstr(new Load(iterLoadReg, iterStoreReg));
+        iterPlusReg = new VirtualReg(new IntegerType(32), curFunc.takeLabel());
+        curBlock.addInstr(new Binary(iterPlusReg, Binary.BiOp.add, iterReg, new IntConstant(1)));
+        curBlock.addInstr(new Store(iterPlusReg, iterStoreReg));
+        exitBlock = new IRBasicBlock(curFunc, curFunc.takeLabel());
+        curBlock = exitBlock;
+        rootBlock.addInstr(new Jump(condBlock));
+        condBlock.addInstr(new Icmp(condReg, Icmp.CmpOp.slt, iterReg, indexSize));
+        condBlock.addInstr(new Branch(condReg, exeHeadBlock, exitBlock));
+        exeTailBlock.addInstr(new Jump(increBlock));
+        increBlock.addInstr(new Jump(condBlock));
+        return thisReg;
     }
 }
