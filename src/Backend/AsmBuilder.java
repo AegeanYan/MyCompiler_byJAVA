@@ -77,9 +77,9 @@ public class AsmBuilder implements IRInterface{
                 curBlock = curfunc.getEntry();
                 funcAllocate(node);
             }
-//            int indexnow = node.blockList.indexOf(block);
-//            if (indexnow < node.blockList.size() - 1) irtmpBlock = node.blockList.get(indexnow + 1);
-//            else irtmpBlock = null;
+            int indexnow = node.blockList.indexOf(block);
+            if (indexnow < node.blockList.size() - 1) irtmpBlock = node.blockList.get(indexnow + 1);
+            else irtmpBlock = null;
             block.accept(this);
             blockMap.put(curBlock.label , curBlock);
         }
@@ -97,7 +97,7 @@ public class AsmBuilder implements IRInterface{
 
     @Override
     public void visit(Alloc node) {
-        curfunc.allocaStackVar(node.allocReg);
+        curfunc.StackAlloc(node.allocReg);
         spaceAllocate(node.allocReg);
     }
 

@@ -19,7 +19,7 @@ public class asmFunction {
         this.blockTable.add(new asmBlock(name , takeLabel()));
     }
 
-    public void allocaStackVar(VirtualReg reg){
+    public void StackAlloc(VirtualReg reg){
         stackVars.add(reg.numLabel);
     }
 
