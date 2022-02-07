@@ -36,7 +36,7 @@ public class IRPrinter implements IRVisitor{
             stream.println("@"+statname+" = dso_local global "+irType.toString()+" "+ irType.getZeroInit().getName());
         }
 
-        for (Pair<String , VirtualReg> pair : node.strConstants){
+        for (Pair<String , VirtualReg> pair : node.strCons){
             String strValue = pair.a;
             VirtualReg strConstReg = pair.b;
             assert strConstReg.type instanceof PointerType;

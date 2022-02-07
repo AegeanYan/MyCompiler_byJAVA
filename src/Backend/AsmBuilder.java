@@ -39,7 +39,7 @@ public class AsmBuilder implements IRInterface{
 
     asmFunction curfunc = null;
     asmBlock curBlock = null;
-    IRBasicBlock irBlock = null;
+    IRBasicBlock irtmpBlock = null;
     HashMap<Integer , Integer> labelMap = new HashMap<>();
     HashMap<Integer , asmBlock> blockMap = new HashMap<>();
     LinkedHashMap<Integer , Long> addrMap = new LinkedHashMap<>();
@@ -60,7 +60,7 @@ public class AsmBuilder implements IRInterface{
     public void visit(IRModule node) {
         root.nameTable.addAll(node.staticDataName);
         for (Pair<String , VirtualReg> pair : node.asmStrings)
-            root.dataTabel.add(new Pair<>(pair.b.name , pair.a));
+            root.dataTable.add(new Pair<>(pair.b.name , pair.a));
         for (String name : node.customFunctionName)
             node.customFunctions.get(name).accept(this);
     }
@@ -77,9 +77,9 @@ public class AsmBuilder implements IRInterface{
                 curBlock = curfunc.getEntry();
                 funcAllocate(node);
             }
-            int indexnow = node.blockList.indexOf(block);
-            if (indexnow < node.blockList.size() - 1) irBlock = node.blockList.get(indexnow + 1);
-            else irBlock = null;
+//            int indexnow = node.blockList.indexOf(block);
+//            if (indexnow < node.blockList.size() - 1) irtmpBlock = node.blockList.get(indexnow + 1);
+//            else irtmpBlock = null;
             block.accept(this);
             blockMap.put(curBlock.label , curBlock);
         }
@@ -129,8 +129,8 @@ public class AsmBuilder implements IRInterface{
 
     @Override
     public void visit(Branch node) {
-        RISCV.Inst.Branch.Op op = irBlock == node.thenBlock ? RISCV.Inst.Branch.Op.beqz : RISCV.Inst.Branch.Op.bnez;
-        int target = irBlock == node.thenBlock ? node.elseBlock.label : node.thenBlock.label;
+        RISCV.Inst.Branch.Op op = irtmpBlock == node.thenBlock ? RISCV.Inst.Branch.Op.beqz : RISCV.Inst.Branch.Op.bnez;
+        int target = irtmpBlock == node.thenBlock ? node.elseBlock.label : node.thenBlock.label;
         int asmLabel = labelMap.get(target);
         PhysicalReg rs1 = getSavesReg();
         getReg(rs1 , node.cond);

@@ -57,7 +57,7 @@ public class AsmPrinter implements asmVisitor{
 
     public void printstr(asmmodule node){
         os.println("\t.section\t.rodata,\"a\",@progbits");
-        for (Pair<String, String> pair : node.dataTabel) {
+        for (Pair<String, String> pair : node.dataTable) {
             String strName  = pair.a;
             String strValue = pair.b;
             os.println("\t.type\t"+strName+",@object");

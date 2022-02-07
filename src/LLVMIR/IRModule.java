@@ -17,7 +17,7 @@ public class IRModule {
     public HashMap<String, IRFunction>  customFunctions  = new HashMap<>();
     public HashMap<String, StructType> customClasses  = new HashMap<>();
     public HashMap<String, IRType>  staticData   = new HashMap<>();
-    public ArrayList<Pair<String, VirtualReg>> strConstants = new ArrayList<>();
+    public ArrayList<Pair<String, VirtualReg>> strCons = new ArrayList<>();
     public ArrayList<Pair<String , VirtualReg>> asmStrings = new ArrayList<>();
     public IRModule(){
         IRFunction function;
