@@ -146,16 +146,16 @@ public class AsmBuilder implements IRInterface{
         for (int i = 0; i < node.in_args.size();++i){
             parameter = node.in_args.get(i);
 
-//            if (i < 8){
-//                reg = rege(aRegs[i]);
-//                getReg(reg , parameter);
-//            }
-//            else {
-            PhysicalReg offsetReg = get_tmp_sReg();
-            PhysicalReg addrReg = get_tmp_sReg();
+            if (i < 8){
+                reg = rege(aRegs[i]);
+                getReg(reg , parameter);
+            }
+            else {
+            PhysicalReg offsetReg = get_tmp_sReg();//0
+            PhysicalReg addrReg = get_tmp_sReg();//1
             //spiltOffset = (node.in_args.size() - 1 - i) * 4L;
-            spiltOffset = i * 4L;
-            reg = get_tmp_sReg();
+            spiltOffset = (i - 8) * 4L;
+            reg = get_tmp_sReg();//2
             getReg(reg , parameter);
             curBlock.append(new LoadImm(offsetReg , spiltOffset));
             curBlock.append(new RegBinary(RegBinary.Op.add , addrReg , rege("sp") , offsetReg));
@@ -163,7 +163,7 @@ public class AsmBuilder implements IRInterface{
             reg.free();
             offsetReg.free();
             addrReg.free();
-//            }
+            }
 
         }
         curBlock.append(new RISCV.Inst.Call(node.func.name));
@@ -245,8 +245,8 @@ public class AsmBuilder implements IRInterface{
 
     @Override
     public void visit(Load node) {
-        PhysicalReg result = get_tmp_sReg();
-        PhysicalReg addr = get_tmp_sReg();
+        PhysicalReg result = get_tmp_sReg();//0
+        PhysicalReg addr = get_tmp_sReg();//1
         if (node.addr.name != null){
             curBlock.append(new LoadAddr(addr , node.addr.name));
             curBlock.append(new RISCV.Inst.Load(StepWidth.word , result , addr , 0L));
@@ -315,8 +315,8 @@ public class AsmBuilder implements IRInterface{
 
     @Override
     public void visit(Store node) {
-        PhysicalReg value = get_tmp_sReg();
-        PhysicalReg addr = get_tmp_sReg();
+        PhysicalReg value = get_tmp_sReg();//0
+        PhysicalReg addr = get_tmp_sReg();//1
         getReg(value , node.storeVal);
         assert node.storeAddr instanceof VirtualReg;
         if (((VirtualReg)node.storeAddr).name != null){
@@ -374,18 +374,18 @@ public class AsmBuilder implements IRInterface{
             VirtualReg arg = node.args.get(i);
             PhysicalReg tmp;
             spaceAllocate(arg);
-//            if (i < 8){
-//                tmp = rege(aRegs[i]);
-//                saveRegs_v_p(tmp , arg);
-//            }
-//            else {
-            tmp = get_tmp_sReg();
-            curBlock.append(new LoadImm(rege("t0") , spOffset + 4L * i));
-            curBlock.append(new RegBinary(RegBinary.Op.add , rege("t1") , rege("sp") , rege("t0")));
-            curBlock.append(new RISCV.Inst.Load(StepWidth.word , tmp , rege("t1") , 0L));
-            saveRegs_v_p(tmp , arg);
-            tmp.free();
-//            }
+            if (i < 8){
+                tmp = rege(aRegs[i]);
+                saveRegs_v_p(tmp , arg);
+            }
+            else {
+                tmp = get_tmp_sReg();
+                curBlock.append(new LoadImm(rege("t0") , spOffset + 4L * (i - 8)));
+                curBlock.append(new RegBinary(RegBinary.Op.add , rege("t1") , rege("sp") , rege("t0")));
+                curBlock.append(new RISCV.Inst.Load(StepWidth.word , tmp , rege("t1") , 0L));
+                saveRegs_v_p(tmp , arg);
+                tmp.free();
+            }
         }
     }
 
@@ -399,8 +399,8 @@ public class AsmBuilder implements IRInterface{
     }
 
     void saveRegs_v_p(PhysicalReg reg , VirtualReg vreg){
-        PhysicalReg addr = get_tmp_sReg();
-        PhysicalReg offset = get_tmp_sReg();
+        PhysicalReg addr = get_tmp_sReg();//2
+        PhysicalReg offset = get_tmp_sReg();//3
         curBlock.append(new LoadImm(offset , addrMap.get(vreg.numLabel)));
         curBlock.append(new RegBinary(RegBinary.Op.add , addr , rege("sp") , offset));
         curBlock.append(new RISCV.Inst.Store(StepWidth.word , reg , addr , 0L));
@@ -416,8 +416,8 @@ public class AsmBuilder implements IRInterface{
         else throw new RuntimeException("getReg no such type");
     }
     void getReg(PhysicalReg p , VirtualReg v){
-        PhysicalReg offset = get_tmp_sReg();
-        PhysicalReg addr = get_tmp_sReg();
+        PhysicalReg offset = get_tmp_sReg();//3
+        PhysicalReg addr = get_tmp_sReg();//4
         curBlock.append(new LoadImm(offset , addrMap.get(v.numLabel)));
         curBlock.append(new RegBinary(RegBinary.Op.add , addr , rege("sp") , offset));
         curBlock.append(new RISCV.Inst.Load(StepWidth.word , p , addr , 0L));
