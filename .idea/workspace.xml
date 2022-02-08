@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="回退">
+    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="try">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Backend/AsmBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/AsmBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Frontend/IRBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +113,7 @@
       <workItem from="1643550187868" duration="24406000" />
       <workItem from="1644121009895" duration="16071000" />
       <workItem from="1644203875247" duration="687000" />
-      <workItem from="1644220738092" duration="8662000" />
+      <workItem from="1644220738092" duration="23333000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -332,7 +332,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644228281860</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="try">
+      <created>1644230040964</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1644230040964</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +368,6 @@
     <MESSAGE value="修改了bash" />
     <MESSAGE value="改了回来" />
     <MESSAGE value="试一下" />
-    <MESSAGE value="try" />
     <MESSAGE value="修改了内建函数名" />
     <MESSAGE value="添加了内建函数" />
     <MESSAGE value="改了debug（汗" />
@@ -370,7 +376,8 @@
     <MESSAGE value="我要过除夕！" />
     <MESSAGE value="commit" />
     <MESSAGE value="回退" />
-    <option name="LAST_COMMIT_MESSAGE" value="回退" />
+    <MESSAGE value="try" />
+    <option name="LAST_COMMIT_MESSAGE" value="try" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -389,6 +396,7 @@
     <watches-manager>
       <configuration name="Application">
         <watch expression="addrMap.get(v.numLabel)" language="JAVA" />
+        <watch expression="spOffset" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
