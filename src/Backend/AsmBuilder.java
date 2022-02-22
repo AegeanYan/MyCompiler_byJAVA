@@ -124,10 +124,10 @@ public class AsmBuilder implements IRInterface{
             VirtualReg arg = node.args.get(i);
             PhysicalReg tmp;
             spaceAllocate(arg);
-//            if (i < 8){
+            if (i < 8){
             tmp = rege(PhysicalReg.aRegs[i]);
             saveRegs_v_p(tmp , arg);
-//            }
+            }
 //            else {
 //                tmp = get_tmp_sReg();
 //                curBlock.append(new LoadImm(rege("t0") , spOffset + 4L * (i - 8)));
@@ -194,10 +194,10 @@ public class AsmBuilder implements IRInterface{
         long tmp_Offset;
         for (int i = 0; i < node.in_args.size();++i){
             parameter = node.in_args.get(i);
-//            if (i < 8){
+            if (i < 8){
                 reg = rege(PhysicalReg.aRegs[i]);
                 getReg(reg , parameter);
-//            }
+            }
 //            else {
 //            PhysicalReg offsetReg = get_tmp_sReg();//0
 //            PhysicalReg addrReg = get_tmp_sReg();//1

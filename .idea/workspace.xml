@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="debugging">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Backend/AsmBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/AsmBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Backend/AsmPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/AsmPrinter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RISCV/Operand/PhysicalReg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RISCV/Operand/PhysicalReg.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RISCV/asmFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RISCV/asmFunction.java" afterDir="false" />
-    </list>
+    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="some details" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -119,7 +112,7 @@
       <workItem from="1644220738092" duration="30814000" />
       <workItem from="1644329294708" duration="2464000" />
       <workItem from="1644461150092" duration="6778000" />
-      <workItem from="1645519708410" duration="5119000" />
+      <workItem from="1645519708410" duration="5344000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -366,7 +359,21 @@
       <option name="project" value="LOCAL" />
       <updated>1644296809601</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="some details">
+      <created>1645526723282</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1645526723282</updated>
+    </task>
+    <task id="LOCAL-00037" summary="some details">
+      <created>1645526740847</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1645526740847</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -405,7 +412,8 @@
     <MESSAGE value="try" />
     <MESSAGE value="全栈分配" />
     <MESSAGE value="debugging" />
-    <option name="LAST_COMMIT_MESSAGE" value="debugging" />
+    <MESSAGE value="some details" />
+    <option name="LAST_COMMIT_MESSAGE" value="some details" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
