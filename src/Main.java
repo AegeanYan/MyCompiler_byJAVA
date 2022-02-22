@@ -19,7 +19,7 @@ import Backend.*;
 public class Main{
     public static void main(String[] args) throws Exception {
         InputStream input = System.in;
-        boolean debug = true;
+        boolean debug = false;
         String name = "test.yx";
         if (debug)input = new FileInputStream(name);
         String asmOutputfile = "output.s";
