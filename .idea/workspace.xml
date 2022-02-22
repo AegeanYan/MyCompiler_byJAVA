@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="全栈分配">
+    <list default="true" id="15413352-1275-4cd2-93ee-bdd8b40605ed" name="Changes" comment="debugging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Backend/AsmBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/AsmBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Backend/AsmPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Backend/AsmPrinter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RISCV/Operand/PhysicalReg.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RISCV/Operand/PhysicalReg.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RISCV/asmFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RISCV/asmFunction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +116,10 @@
       <workItem from="1643550187868" duration="24406000" />
       <workItem from="1644121009895" duration="16071000" />
       <workItem from="1644203875247" duration="687000" />
-      <workItem from="1644220738092" duration="30071000" />
+      <workItem from="1644220738092" duration="30814000" />
+      <workItem from="1644329294708" duration="2464000" />
+      <workItem from="1644461150092" duration="6778000" />
+      <workItem from="1645519708410" duration="5119000" />
     </task>
     <task id="LOCAL-00001" summary="g4 finished">
       <created>1634290318160</created>
@@ -353,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1644290151620</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="debugging">
+      <created>1644296809601</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1644296809601</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,14 +398,14 @@
     <MESSAGE value="修改了内建函数名" />
     <MESSAGE value="添加了内建函数" />
     <MESSAGE value="改了debug（汗" />
-    <MESSAGE value="debugging" />
     <MESSAGE value="last?" />
     <MESSAGE value="我要过除夕！" />
     <MESSAGE value="commit" />
     <MESSAGE value="回退" />
     <MESSAGE value="try" />
     <MESSAGE value="全栈分配" />
-    <option name="LAST_COMMIT_MESSAGE" value="全栈分配" />
+    <MESSAGE value="debugging" />
+    <option name="LAST_COMMIT_MESSAGE" value="debugging" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -401,14 +414,6 @@
           <properties class="java.lang.RuntimeException" package="java.lang" />
           <option name="timeStamp" value="16" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Backend/AsmBuilder.java</url>
-          <line>141</line>
-          <properties class="Backend.AsmBuilder" method="visit">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>

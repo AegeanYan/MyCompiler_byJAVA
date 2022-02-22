@@ -11,8 +11,9 @@ public class asmFunction {
     public String name;
     public ArrayList<PhysicalReg> parameters = new ArrayList<>();
     public Integer labelCnt;
+    public HashSet<Integer> vari_num_stack = new HashSet<>();
     public LinkedList<asmBlock> blockTable = new LinkedList<>();
-    public HashSet<Integer> stackVars = new HashSet<>();
+
     public asmFunction(String name){
         this.name = name;
         labelCnt = 0;
@@ -20,11 +21,11 @@ public class asmFunction {
     }
 
     public void StackAlloc(VirtualReg reg){
-        stackVars.add(reg.numLabel);
+        vari_num_stack.add(reg.numLabel);
     }
 
     public boolean cotainStackVar(VirtualReg reg){
-        return stackVars.contains(reg.numLabel);
+        return vari_num_stack.contains(reg.numLabel);
     }
 
     public asmBlock getEntry(){

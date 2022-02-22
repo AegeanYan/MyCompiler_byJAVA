@@ -13,27 +13,26 @@ public class AsmPrinter implements asmVisitor{
     @Override
     public void visit(asmmodule node) {
         os.println("\t.text");
-        for (Pair<String , asmFunction> pair : node.funcTable){
-            pair.b.accept(this);
-        }
-        os.println();
+        node.funcTable.forEach(cd -> {
+            os.println("\t.globl\t"+ cd.a);
+            os.println("\t.p2align\t2");
+            os.println("\t.type\t"+ cd.a +",@function");
+            os.println(cd.a +":");
+            for (asmBlock block : cd.b.blockTable){
+                if (block != cd.b.blockTable.getFirst())os.println(block.getLabel() + ":");
+                block.accept(this);
+            }
+            os.println();
+        });
+
         printa(node);
-        os.println();
         printstr(node);
         os.println("\t.section\t\".note.GNU-stack\",\"\",@progbits");
     }
 
     @Override
     public void visit(asmFunction node) {
-        os.println("\t.globl\t"+node.name);
-        os.println("\t.p2align\t2");
-        os.println("\t.type\t"+node.name+",@function");
-        os.println(node.name+":");
-        for (asmBlock block : node.blockTable){
-            if (block != node.blockTable.getFirst())os.println(block.getLabel() + ":");
-            block.accept(this);
-        }
-        os.println();
+
     }
 
     @Override
